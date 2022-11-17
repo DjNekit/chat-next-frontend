@@ -11,7 +11,12 @@ export default async function handler(
     const { data, headers: returnedHeaders } = await axios.post(
       `${process.env.API}/v1/auth/signin`,
       body,
-      { headers }
+      { 
+        headers: {
+          ...headers,
+          host: '16a4-79-132-138-72.eu.ngrok.io'
+        }
+      }
     );
 
     setHeaders(res, returnedHeaders)
