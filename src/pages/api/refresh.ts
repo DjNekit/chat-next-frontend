@@ -9,11 +9,14 @@ export default async function handler(
   
   try {
     const { headers } = req
+    console.log(headers)
     
     const { data, headers: returnedHeaders } = await axios.post(
       `${process.env.API}/v1/auth/refresh-tokens`,
       undefined, 
-      { headers }
+      { 
+        headers
+      }
     )
 
     setHeaders(res, returnedHeaders)
