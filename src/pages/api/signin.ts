@@ -14,7 +14,7 @@ export default async function handler(
       { 
         headers: {
           ...headers,
-          host: '16a4-79-132-138-72.eu.ngrok.io'
+          host: process.env.HOST
         }
       }
     );

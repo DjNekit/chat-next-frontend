@@ -11,7 +11,12 @@ export default async function handler(
     const { data, headers: returnedHeaders } = await axios.post(
       `${process.env.API}/v1/auth/signup`,
       body,
-      { headers }
+      { 
+        headers: {
+          ...headers,
+          host: process.env.HOST
+        }
+      }
     );
 
     setHeaders(res, returnedHeaders)

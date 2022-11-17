@@ -9,7 +9,6 @@ export default async function handler(
   
   try {
     const { headers } = req
-    console.log(headers)
     
     const { data, headers: returnedHeaders } = await axios.post(
       `${process.env.API}/v1/auth/refresh-tokens`,
@@ -17,7 +16,7 @@ export default async function handler(
       { 
         headers: {
           ...headers,
-          host: 'https://16a4-79-132-138-72.eu.ngrok.io'
+          host: process.env.HOST
         }
       }
     )
