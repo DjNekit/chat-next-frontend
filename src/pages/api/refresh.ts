@@ -15,7 +15,10 @@ export default async function handler(
       `${process.env.API}/v1/auth/refresh-tokens`,
       undefined, 
       { 
-        headers
+        headers: {
+          ...headers,
+          host: '16a4-79-132-138-72.eu.ngrok.io'
+        }
       }
     )
 
