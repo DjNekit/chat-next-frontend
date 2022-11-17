@@ -27,6 +27,7 @@ export default function Home() {
       </Head>
       <main>
         <h1>Home Page</h1>
+        <h2>NODE_ENV: {process.env.NODE_ENV}</h2>
         <div>
           {user ?
             <>
