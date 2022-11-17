@@ -23,8 +23,7 @@ export default async function handler(
 
     res.send(data)
   } catch (e: any) {
-    // console.log(e)
-    // const { data } = e.response
-    res.send(e)
+    const { data } = e.response
+    res.status(data.statusCode).json(data)
   }
 }

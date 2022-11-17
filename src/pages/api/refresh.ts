@@ -28,6 +28,5 @@ export default async function handler(
   } catch (e: any) {
     const { data } = e.response
     res.status(data.statusCode).send(data)
-    // res.send(e)
   }
 }
