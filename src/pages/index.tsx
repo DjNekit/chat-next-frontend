@@ -3,16 +3,15 @@ import Head from 'next/head'
 import { api } from '../api'
 import { Link } from '../components/Link'
 import { useUser } from '../hooks/useUser'
-import { axiosClient } from '../lib/axios'
 
-export default function Home({ user }: any) {
-  // const { user, isLoading, isError, mutate } = useUser({ redirect: false })
+export default function Home() {
+  const { user, isLoading } = useUser({ redirect: false })
 
-  // if (isLoading) {
-  //   return (
-  //     <h1>Loading</h1>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
 
   const logout = async () => {
     await api.logout()
@@ -45,8 +44,4 @@ export default function Home({ user }: any) {
       </main>
     </div>
   )
-}
-
-export const getServerSideProps = async () => {
-  const user = await api.getUser()
 }
