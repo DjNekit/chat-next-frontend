@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import useSWR from "swr"
 import { useRouter } from 'next/router';
-import { axiosClient } from "../lib/axios"
+import { axiosClient } from "@/lib/axios"
 
 interface AuthOptions {
   redirect?: boolean

@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { setHeaders } from '../../helpers/setHeaders';
+import { setHeaders } from '@/helpers/setHeaders';
 
 export default async function handler(
   req: NextApiRequest,

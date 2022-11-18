@@ -1,11 +1,9 @@
 import { Button, Input, Stack } from "@chakra-ui/react";
-import axios from "axios";
-import { ApiError } from "next/dist/server/api-utils";
 import Head from "next/head";
 import Router from "next/router";
-import { api } from "../api";
-import { Link } from "../components/Link";
-import { useUser } from "../hooks/useUser";
+import { api } from "@/api";
+import { Link } from "@/components/Link";
+import { useUser } from "@/hooks/useUser";
 
 export default function SigninPage() {
   const {user, isLoading, isError, mutate} = useUser()

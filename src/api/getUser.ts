@@ -1,4 +1,4 @@
-import { axiosClient } from "../lib/axios"
+import { axiosClient } from "@/lib/axios"
 
 export const getUser = async () => {
   const res = await axiosClient.post('/v1/auth/current-user')

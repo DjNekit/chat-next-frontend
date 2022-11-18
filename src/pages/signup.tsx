@@ -1,7 +1,7 @@
 import { Button, Input, propNames, Stack } from "@chakra-ui/react";
 import Head from "next/head";
-import { Link } from "../components/Link";
-import { axiosClient } from "../lib/axios";
+import { Link } from "@/components/Link";
+import { axiosClient } from "@/lib/axios";
 
 export default function SignupPage() {
   const handleSubmit = () => {

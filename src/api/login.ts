@@ -1,5 +1,5 @@
 import axios from "axios"
-import { axiosClient } from "../lib/axios"
+import { axiosClient } from "@/lib/axios"
 
 interface Credentials {
   email: string

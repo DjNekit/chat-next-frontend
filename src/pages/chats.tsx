@@ -1,11 +1,9 @@
 import Head from "next/head";
-import { useEffect } from "react";
-import { api } from "../api";
-import { Link } from "../components/Link";
-import { useUser } from "../hooks/useUser";
+import { Link } from "@/components/Link";
+import { useUser } from "@/hooks/useUser";
 
 export default function ChatsPage() {
-  const { user, isLoading, isError } = useUser({ redirect: true })
+  const { user } = useUser({ redirect: true })
   
   if (!user) {
     return <h1>Loading...</h1>

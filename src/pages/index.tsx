@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/react'
 import Head from 'next/head'
-import { api } from '../api'
-import { Link } from '../components/Link'
-import { useUser } from '../hooks/useUser'
+import { api } from '@/api'
+import { Link } from '@/components/Link'
+import { useUser } from '@/hooks/useUser'
 
 export default function Home() {
   const { user, isLoading } = useUser({ redirect: false })
