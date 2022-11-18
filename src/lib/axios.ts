@@ -14,7 +14,6 @@ export const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.response.use(undefined, async (error) => {
-  // console.log(error)
   const { url, method, data } = error.config
   const parsedData = data ? JSON.parse(data) : null
 

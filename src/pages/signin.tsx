@@ -24,11 +24,15 @@ export default function SigninPage() {
   }
 
   const submit = async () => {
-    await api.login({
+    const error = await api.login({
       email: 'test@test.com',
       password: '12345678'
     })
-    mutate()
+
+    if (!error) {
+      mutate()
+      return
+    }
   }
 
   return (
