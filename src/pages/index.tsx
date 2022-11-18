@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, useColorMode } from '@chakra-ui/react'
 import Head from 'next/head'
 import { api } from '@/api'
 import { Link } from '@/components/Link'
@@ -6,6 +6,7 @@ import { useUser } from '@/hooks/useUser'
 
 export default function Home() {
   const { user, isLoading } = useUser({ redirect: false })
+  const { toggleColorMode } = useColorMode()
 
   if (isLoading) {
     return (
@@ -40,6 +41,7 @@ export default function Home() {
               <Link href='/signin'>Sign In</Link>
             </>
           }
+          <Button onClick={toggleColorMode}>Toggle color mode</Button>
         </div>
       </main>
     </div>

@@ -1,0 +1,42 @@
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.animate {
+  transform: scale(0);
+  animation: scale 2s ease-out forwards;
+}
+
+.delay1 {
+  animation-delay: 0s;
+}
+.delay2 {
+  animation-delay: .3s;
+}
+.delay3 {
+  animation-delay: .6s;
+}
+.delay4 {
+  animation-delay: .9s;
+}
+.delay5 {
+  animation-delay: 1.2s;
+}
+.delay6 {
+  animation-delay: 1.5s;
+}
+.delay7 {
+  animation-delay: 1.8s;
+}
