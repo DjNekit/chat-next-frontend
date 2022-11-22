@@ -9,6 +9,8 @@ export default async function handler(
   try {
     proxyRequest('/v1/auth/refresh-tokens', req, res)
   } catch (error: any) {
+    throw new Error(error) 
+
     apiErrorHandle(error, res)
   }
 }

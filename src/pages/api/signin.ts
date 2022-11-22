@@ -9,7 +9,6 @@ export default function handler(
   try {
     proxyRequest('/v1/auth/signin', req, res)
   } catch (error: any) {
-    throw new Error(error) 
     apiErrorHandle(error, res)
   }
 }
