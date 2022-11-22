@@ -1,18 +1,18 @@
-import { Button } from '@chakra-ui/react'
+import { Button, useColorMode } from '@chakra-ui/react'
 import Head from 'next/head'
-import { api } from '../api'
-import { Link } from '../components/Link'
-import { useUser } from '../hooks/useUser'
-import { axiosClient } from '../lib/axios'
+import { api } from '@/api'
+import { Link } from '@/components/Link'
+import { useUser } from '@/hooks/useUser'
 
-export default function Home({ user }: any) {
-  // const { user, isLoading, isError, mutate } = useUser({ redirect: false })
+export default function Home() {
+  const { user, isLoading } = useUser({ redirect: false })
+  const { toggleColorMode } = useColorMode()
 
-  // if (isLoading) {
-  //   return (
-  //     <h1>Loading</h1>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
 
   const logout = async () => {
     await api.logout()
@@ -41,12 +41,9 @@ export default function Home({ user }: any) {
               <Link href='/signin'>Sign In</Link>
             </>
           }
+          <Button onClick={toggleColorMode}>Toggle color mode</Button>
         </div>
       </main>
     </div>
   )
-}
-
-export const getServerSideProps = async () => {
-  const user = await api.getUser()
 }
