@@ -15,7 +15,7 @@ export const proxyRequest = async (
     { 
       headers: {
         ...headers,
-        host: `https://${process.env.HOST}`
+        HOST: 'https://2a44-188-187-158-177.eu.ngrok.io'
       }
     }
   );
