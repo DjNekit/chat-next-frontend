@@ -16,7 +16,7 @@ export const proxyRequest = async (
       baseURL: '/',
       headers: {
         ...headers,
-        HOST: 'https://2a44-188-187-158-177.eu.ngrok.io'
+        host: '2a44-188-187-158-177.eu.ngrok.io'
       }
     }
   );
