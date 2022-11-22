@@ -1,34 +1,14 @@
-import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { setHeaders } from '@/helpers/setHeaders';
+import { proxyRequest } from '@/lib/proxyRequest';
+import { apiErrorHandle } from '@/lib/apiError';
 
-export default async function handler(
+export default function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { body, headers } = req;
-    const { data, headers: returnedHeaders } = await axios.post(
-      `${process.env.API}/v1/auth/signin`,
-      body,
-      { 
-        headers: {
-          ...headers,
-          // host: process.env.HOST
-        }
-      }
-    );
-
-    setHeaders(res, returnedHeaders)
-
-    res.send(data)
-  } catch (e: any) {
-    const data = e?.response?.data
-
-    if (data) {
-      res.status(data.statusCode).json(data)
-    } else {
-      res.send(e)
-    }
+    proxyRequest('/v1/auth/signin', req, res)
+  } catch (error: any) {
+    apiErrorHandle(error, res)
   }
 }

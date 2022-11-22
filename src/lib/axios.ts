@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import * as cookie from 'cookie'
-import * as setCookie from 'set-cookie-parser'
+import { setAuthTokenInAxios } from "./setAuthTokenInAxios";
 
 type ResType = {
   accessToken: string
@@ -14,34 +13,30 @@ export const axiosClient = axios.create({
   withCredentials: true,
 })
 
+//? Интерцептор для автообновления access токена
 axiosClient.interceptors.response.use(undefined, async (error) => {
-  console.log(error)
   const { url, method, data } = error.config
-  const parsedData = data ? JSON.parse(data) : null
-  if (error.response.status !== 401 || url == '/api/refresh') {
+  const failedRequestBody = data ? JSON.parse(data) : null
+
+  if (error.response.status !== 401 || url === '/api/refresh') {
     return Promise.reject(error);
   }
+
   const res = await axiosClient.post<null, AxiosResponse<ResType>>(
     '/api/refresh',
     undefined,
-    {
-      baseURL: '/'
-    }
+    { baseURL: '/' }
   )
-
-  if (axiosClient.defaults.headers.setCookie) {
-    delete axiosClient.defaults.headers.setCookie
-  }
 
   const { accessToken } = res.data
 
   if (!accessToken) {
     return Promise.reject(error)
   }
-  const bearer = `Bearer ${accessToken}`
-  axiosClient.defaults.headers.Authorization = bearer
 
-  const retryFailedRequest = await axiosClient[method as Method](url, parsedData)
+  setAuthTokenInAxios(axiosClient, accessToken)
+
+  const retryFailedRequest = await axiosClient[method as Method](url, failedRequestBody)
   return Promise.resolve(retryFailedRequest);
 })
 

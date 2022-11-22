@@ -1,11 +1,11 @@
 import { axiosClient } from "@/lib/axios"
+import { setAuthTokenInAxios } from "@/lib/setAuthTokenInAxios"
 
 export const signup = async (data: any) => {
   try {
     const res = await axiosClient.post('/v1/auth/signup', data)
     const { accessToken } = res.data
-    const bearer = `Bearer ${accessToken}`
-    axiosClient.defaults.headers.Authorization = bearer
+    setAuthTokenInAxios(axiosClient, accessToken)
   } catch(e) {
     return e
   }
