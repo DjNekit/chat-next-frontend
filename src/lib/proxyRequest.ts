@@ -15,7 +15,7 @@ export const proxyRequest = async (
     { 
       headers: {
         ...headers,
-        host: process.env.HOST
+        host: `https://${process.env.HOST}`
       }
     }
   );
