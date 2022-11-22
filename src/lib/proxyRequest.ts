@@ -11,7 +11,12 @@ export const proxyRequest = async (
   const { data, headers: returnedHeaders } = await axios.post(
     `${process.env.API}${url}`,
     body,
-    { headers }
+    { 
+      headers: {
+        ...headers,
+        host: process.env.HOST
+      }
+    }
   );
 
   //? Подставляю оригинальные хэдеры с куками в прокси ответ
