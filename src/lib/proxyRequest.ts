@@ -9,7 +9,6 @@ export const proxyRequest = async (
 ) => {
   //? Подставляю оригинальные хэдеры с куками в прокси запрос
   const { body, headers } = req;
-  console.log(headers)
   const { data, headers: returnedHeaders } = await axiosClient.post(
     `${process.env.API}${url}`,
     body,
@@ -17,7 +16,7 @@ export const proxyRequest = async (
       baseURL: '/',
       headers: {
         ...headers,
-        host: '2a44-188-187-158-177.eu.ngrok.io'
+        host: process.env.API
       }
     }
   );

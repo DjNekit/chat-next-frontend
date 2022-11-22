@@ -16,7 +16,6 @@ export const axiosClient = axios.create({
 //? Интерцептор для автообновления access токена
 axiosClient.interceptors.response.use(undefined, async (error) => {
   if (!error?.config) {
-    console.log(error)
     return Promise.reject(error);
   }
   const { url, method, data } = error.config

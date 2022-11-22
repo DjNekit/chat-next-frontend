@@ -22,8 +22,7 @@ export function useUser(options?: AuthOptions) {
   const router = useRouter()
 
   if (error && options?.redirect) {
-    console.log(error)
-    // router.push('/signin')
+    router.push('/signin')
   }
 
   return {
