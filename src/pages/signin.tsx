@@ -1,14 +1,16 @@
-import { Button, Input, Stack } from "@chakra-ui/react";
+import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import Router from "next/router";
 import { api } from "@/api";
 import { Link, SigninLayout } from "@/components";
 import { useUser } from "@/hooks/useUser";
-import { NextPage } from "next";
 import { ReactNode } from "react";
+import { useForm } from "react-hook-form";
 
 export default function SigninPage() {
-  const {user, isLoading, isError, mutate} = useUser()
+  const { user, isLoading, isError, mutate } = useUser()
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
 
   if (isLoading) {
     return (
@@ -23,11 +25,9 @@ export default function SigninPage() {
     )
   }
 
-  const submit = async () => {
-    const error = await api.login({
-      email: 'test@test.com',
-      password: '12345678'
-    })
+
+  const onSubmit = async (data: any) => {
+    const error = await api.login(data)
 
     if (!error) {
       mutate()
@@ -36,20 +36,30 @@ export default function SigninPage() {
   }
 
   return (
-    <div>
+    <>
       <Head>
         <title>Sign In</title>
       </Head>
-      <main>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={5}>
-          <Link href='/'>To Home page</Link>
           <h1>Sign In page</h1>
-          <Input placeholder='Email' size='lg' />
-          <Input placeholder='Password' size='lg' />
-          <Button onClick={submit}>Sign in</Button>
+          <Input
+            {...register('email', { required: true })}
+            placeholder='Email'
+            size='lg'
+          />
+          <Input
+            {...register('password', { required: true })}
+            placeholder='Password'
+            size='lg'
+          />
+          <Button type="submit">Sign in</Button>
+          <Text textAlign='center'>
+            Don't have account? <Link href='/signup'>Sign Up!</Link>
+          </Text>
         </Stack>
-      </main>
-    </div>
+      </form>
+    </>
   )
 }
 

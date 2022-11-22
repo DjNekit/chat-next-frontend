@@ -9,15 +9,16 @@ export default async function handler(
   
   try {
     const { headers } = req
-    
+
     const { data, headers: returnedHeaders } = await axios.post(
       `${process.env.API}/v1/auth/refresh-tokens`,
       undefined, 
       { 
         headers: {
           ...headers,
-          host: process.env.HOST
-        }
+          // host: process.env.HOST
+        },
+        // withCredentials: true
       }
     )
 
@@ -26,7 +27,12 @@ export default async function handler(
     res.send(data)
 
   } catch (e: any) {
-    const { data } = e.response
-    res.status(data.statusCode).send(data)
+    const data = e?.response?.data
+    if (!data) {
+      res.send(e)
+    } else {
+
+      res.status(data.statusCode).send(data)
+    }
   }
 }

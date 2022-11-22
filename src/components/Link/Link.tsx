@@ -8,7 +8,14 @@ interface LinkProps extends Omit<ChakraLinkProps, 'as'> {
 
 export const Link: FC<LinkProps> = ({ children, ...restProps }) => {
   return (
-    <ChakraLink as={NextLink} {...restProps}>
+    <ChakraLink 
+      as={NextLink} 
+      color='blue.500' 
+      _hover={{
+        color: 'blue.400'
+      }}
+      {...restProps}
+    >
       {children}
     </ChakraLink>
   )

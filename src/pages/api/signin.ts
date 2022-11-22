@@ -14,7 +14,7 @@ export default async function handler(
       { 
         headers: {
           ...headers,
-          host: process.env.HOST
+          // host: process.env.HOST
         }
       }
     );
@@ -23,7 +23,12 @@ export default async function handler(
 
     res.send(data)
   } catch (e: any) {
-    const { data } = e.response
-    res.status(data.statusCode).json(data)
+    const data = e?.response?.data
+
+    if (data) {
+      res.status(data.statusCode).json(data)
+    } else {
+      res.send(e)
+    }
   }
 }

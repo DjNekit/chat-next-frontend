@@ -8,6 +8,12 @@ export const AnimatedLogo = () => {
       <Flex 
         as={Link}
         href='/'
+        color='white'
+        _hover={{
+          color: 'white',
+          transform: 'scale(1.1)',
+          transition: 'all .3s ease-out'
+        }}
         fontSize={[35, 50, 50, 70, 100]} 
         gap={5} 
         cursor='pointer'

@@ -14,7 +14,7 @@ export default async function handler(
       { 
         headers: {
           ...headers,
-          host: process.env.HOST
+          // host: process.env.HOST
         }
       }
     );

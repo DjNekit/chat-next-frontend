@@ -27,9 +27,9 @@ export const SigninLayout: FC<SigninLayoutProps> = ({ children }) => {
         <AnimatedLogo />
       </Box>
       <Center 
-        borderTopRightRadius='10%' 
+        borderTopRightRadius='5%' 
         borderTopLeftRadius={{
-          base: '10%',
+          base: '5%',
           md: '0%',
         }}
         bg='white'
