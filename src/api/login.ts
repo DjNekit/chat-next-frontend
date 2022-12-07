@@ -1,4 +1,3 @@
-import axios from "axios"
 import { axiosClient } from "@/lib/axios"
 import { setAuthTokenInAxios } from "@/lib/setAuthTokenInAxios"
 
@@ -9,7 +8,9 @@ interface Credentials {
 
 export const login = async (credentials: Credentials) => {
   try {
-    const res = await axios.post('/api/signin', credentials)
+    const res = await axiosClient.post('/api/signin', credentials, {
+      baseURL: '/'
+    })
     const { accessToken } = res.data
     setAuthTokenInAxios(axiosClient, accessToken)
   } catch(error) {

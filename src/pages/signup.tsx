@@ -1,11 +1,11 @@
 import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import Head from "next/head";
+import Router from "next/router";
+import { useForm } from "react-hook-form";
 import { Link } from "@/components/Link";
 import { SigninLayout } from "@/components";
-import { ReactNode } from "react";
-import { useForm } from "react-hook-form";
 import { useUser } from "@/hooks/useUser";
-import Router from "next/router";
 import { api } from "@/api";
 
 export default function SignupPage() {

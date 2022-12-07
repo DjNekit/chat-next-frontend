@@ -11,7 +11,6 @@ export default function SigninPage() {
   const { user, isLoading, isError, mutate } = useUser()
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-
   if (isLoading) {
     return (
       <h1>Loading...</h1>
