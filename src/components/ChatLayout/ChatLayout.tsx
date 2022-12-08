@@ -10,7 +10,7 @@ interface ChatLayoutProps {
 
 export const ChatLayout: FC<ChatLayoutProps> = ({ title, children }) => {
   const onLogout = () => {
-    
+
   }
   return (
     <>
@@ -27,9 +27,7 @@ export const ChatLayout: FC<ChatLayoutProps> = ({ title, children }) => {
         p={4}
         bg='#EFF6FC'
       >
-        <GridItem rowSpan={3} colSpan={1}>
-          <Navbar onLogout={onLogout}/>
-        </GridItem>
+        
         {children}
       </Grid>
     </>
