@@ -3,20 +3,19 @@ import Head from 'next/head'
 import { api } from '@/api'
 import { Link } from '@/components/Link'
 import { useUser } from '@/hooks/useUser'
+import { Loading } from '@/components'
 
 export default function Home() {
-  const { user, isLoading } = useUser({ redirect: false })
+  const { user, isLoading, mutate } = useUser({ disableRedirect: true })
   const { toggleColorMode } = useColorMode()
 
   if (isLoading) {
-    return (
-      <h1>Loading</h1>
-    )
+    return <Loading />
   }
 
   const logout = async () => {
     await api.logout()
-    location.reload()
+    mutate()
   }
   
   return (

@@ -8,6 +8,7 @@ import '@fontsource/open-sans/700.css'
 import { SWRConfig } from 'swr'
 import { fetcher } from '@/lib/fetcher'
 import { useRouter } from 'next/router'
+import { PUBLIC_ROUTES } from '@/constants'
 
 
 
@@ -31,15 +32,14 @@ export default function App({
     <SWRConfig
       value={{
         fetcher,
-        // revalidateOnFocus: false,
         shouldRetryOnError: false,
-        onError(err, key, config) {
+        onError: err => {
+          const isPublicRoute = PUBLIC_ROUTES.includes(router.pathname)
           const status = err?.response.status
-          if (status === 401) {
+          if (status === 401 && !isPublicRoute) {
             router.replace('/signin')
           }
         },
-        
       }}
     >
       <ChakraProvider theme={theme}>
