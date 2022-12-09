@@ -7,10 +7,11 @@ import { FC, memo } from "react";
 import { mutate } from "swr";
 
 interface NavbarProps {
+  name: string
   onLogout: () => void
 }
 
-export const Navbar: FC<NavbarProps> = memo(({ onLogout }) => {
+export const Navbar: FC<NavbarProps> = memo(({ name, onLogout }) => {
   return (
     <Box
       bg='black'
@@ -24,7 +25,10 @@ export const Navbar: FC<NavbarProps> = memo(({ onLogout }) => {
         h='100%'
       >
         <Avatar 
-          name='Nikita Lipin' 
+          name={name}
+          backgroundColor='white'
+          color='black'
+          cursor='pointer'
         />
         <motion.button 
           whileTap={{ scale: 0.9 }} 

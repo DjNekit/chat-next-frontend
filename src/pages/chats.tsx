@@ -22,7 +22,7 @@ export default function ChatsPage() {
   return (
     <>
       <GridItem rowSpan={3} colSpan={1}>
-        <Navbar onLogout={onLogout} />
+        <Navbar name={user.name} onLogout={onLogout} />
       </GridItem>
       <GridItem>
         <Segment>
