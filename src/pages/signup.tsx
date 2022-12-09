@@ -1,12 +1,12 @@
-import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
-import { ReactNode, useEffect } from "react";
 import Head from "next/head";
+import router from "next/router";
+import { useEffect } from "react";
+import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link } from "@/components/Link";
 import { Loading, SigninLayout } from "@/components";
 import { useUser } from "@/hooks/useUser";
 import { api } from "@/api";
-import router from "next/router";
 
 export default function SignupPage() {
   const { user, isLoading, isLogout, mutate } = useUser({
