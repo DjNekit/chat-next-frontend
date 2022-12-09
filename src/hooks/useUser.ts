@@ -1,45 +1,20 @@
 import useSWR from "swr"
-import { useEffect } from "react";
-import { useRouter } from 'next/router';
-import { axiosClient } from "@/lib/axios"
 
-interface AuthOptions {
-  redirectOnLogout?: boolean
-  redirectOnLogin?: boolean
-}
-
-const fetcher = async (url: string) => {
-  const res = await axiosClient.post(url)
-  const user = res.data
-  return user
-}
-
-export function useUser(options?: AuthOptions) {
-  const router = useRouter()
+export function useUser() {
   const { data: user, error, mutate } = useSWR(
     '/v1/auth/current-user/', 
-    fetcher, 
     {
-      shouldRetryOnError: false,
+      revalidateIfStale: false,
       revalidateOnFocus: false,
+      revalidateOnReconnect: false
     }
   )
-
   const isLogout = error?.response.status === 401
-
-  useEffect(() => {
-    if (isLogout && options?.redirectOnLogout) {
-      router.push('/signin')
-    }
-    if (isLogout && options?.redirectOnLogin) {
-      router.push('/chats')
-    }
-  }, [user, isLogout])
 
   return {
     user,
     isLoading: !error && !user,
-    isError: error,
+    error: error,
     isLogout,
     mutate
   }

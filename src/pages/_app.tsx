@@ -5,6 +5,9 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '@/theme'
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/700.css'
+import { SWRConfig } from 'swr'
+import { fetcher } from '@/lib/fetcher'
+import { useRouter } from 'next/router'
 
 
 
@@ -22,10 +25,26 @@ export default function App({
 }: AppPropsWithLayout) {
   const defaultPage = (page: ReactElement) => page
   const getLayout = Component.getLayout ?? defaultPage;
+  const router = useRouter()
   
   return (
-    <ChakraProvider theme={theme}>
-      {getLayout(<Component {...pageProps} />)}
-    </ChakraProvider>
+    <SWRConfig
+      value={{
+        fetcher,
+        // revalidateOnFocus: false,
+        shouldRetryOnError: false,
+        onError(err, key, config) {
+          const status = err?.response.status
+          if (status === 401) {
+            router.replace('/signin')
+          }
+        },
+        
+      }}
+    >
+      <ChakraProvider theme={theme}>
+        {getLayout(<Component {...pageProps} />)}
+      </ChakraProvider>
+    </SWRConfig>
   )
 }

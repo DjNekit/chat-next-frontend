@@ -1,23 +1,24 @@
-import { ReactNode, useCallback } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 import { ChatLayout, Segment, Navbar, Loading } from "@/components";
 import { useUser } from "@/hooks/useUser";
 import { GridItem, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { api } from "@/api";
 import { useRouter } from "next/router";
+import { mutate } from "swr";
 
 export default function ChatsPage() {
-  const { user, isLoading, isError } = useUser({ 
-    redirectOnLogout: true 
-  })
   const router = useRouter() 
+  const { user, isLogout, isLoading, mutate } = useUser()
+  console.log('chat')
+
 
   const onLogout = useCallback(async () => {
     await api.logout()
-    router.push('/signin')
+    await mutate()
   }, [])
 
-  if (isLoading || isError) {
+  if (isLoading || isLogout) {
     return <Loading />
   }
 

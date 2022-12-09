@@ -21,7 +21,6 @@ export const ChatLayout: FC<ChatLayoutProps> = memo(({ title, children }) => {
         templateColumns='80px 1fr 2fr'
         gap={4}
         p={4}
-        // bg='#EFF6FC'
       >
         {children}
       </Grid>
