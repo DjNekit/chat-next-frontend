@@ -1,26 +1,24 @@
-import { ReactNode } from "react";
-import { ChatLayout, Segment, Navbar } from "@/components";
+import { ReactNode, useCallback } from "react";
+import { ChatLayout, Segment, Navbar, Loading } from "@/components";
 import { useUser } from "@/hooks/useUser";
 import { GridItem, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { api } from "@/api";
+import { useRouter } from "next/router";
 
 export default function ChatsPage() {
-  const { user, isLoading, isError, mutate } = useUser({ 
+  const { user, isLoading, isError } = useUser({ 
     redirectOnLogout: true 
   })
+  const router = useRouter() 
 
-  const onLogout = async () => {
+  const onLogout = useCallback(async () => {
     await api.logout()
-    mutate()
-  }
+    router.push('/signin')
+  }, [])
 
-  if (isLoading) {
-    return <h1>Loading...</h1>
-  }
-
-  if (isError) {
-    return <h1>Redirect...</h1>
+  if (isLoading || isError) {
+    return <Loading />
   }
 
   return (
@@ -44,15 +42,15 @@ export default function ChatsPage() {
         </Segment>
       </GridItem>
       <GridItem rowSpan={3}>
-        <Segment>
+        <Segment padded>
           Chat
         </Segment>
       </GridItem>
       <GridItem>
-        <Segment>Chat Group</Segment>
+        <Segment padded>Chat Group</Segment>
       </GridItem>
       <GridItem>
-        <Segment>Contacts</Segment>
+        <Segment padded>Contacts</Segment>
       </GridItem>
     </>
   )

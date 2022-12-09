@@ -3,23 +3,17 @@ import { ExitIcon } from "../Icons/ExitIcon"
 import { motion } from "framer-motion";
 import { api } from "@/api";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { mutate } from "swr";
 
 interface NavbarProps {
   onLogout: () => void
 }
 
-export const Navbar: FC<NavbarProps> = ({ onLogout }) => {
-
-  const logout = async () => {
-    await api.logout()
-    mutate('/v1/auth/current-user/')
-  }
-
+export const Navbar: FC<NavbarProps> = memo(({ onLogout }) => {
   return (
     <Box
-      bg='purple.700'
+      bg='black'
       h='100%'
       p={4}
       borderRadius='xl'
@@ -47,4 +41,4 @@ export const Navbar: FC<NavbarProps> = ({ onLogout }) => {
       </Center>
     </Box>
   )
-}
+})

@@ -1,17 +1,13 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react"
 import Head from "next/head"
-import { FC, ReactNode } from "react"
-import { Navbar } from "../Navbar/Navbar"
+import { FC, memo, ReactNode } from "react"
+import { Grid } from "@chakra-ui/react"
 
 interface ChatLayoutProps {
   title: string
   children: ReactNode
 }
 
-export const ChatLayout: FC<ChatLayoutProps> = ({ title, children }) => {
-  const onLogout = () => {
-
-  }
+export const ChatLayout: FC<ChatLayoutProps> = memo(({ title, children }) => {
   return (
     <>
       <Head>
@@ -21,15 +17,14 @@ export const ChatLayout: FC<ChatLayoutProps> = ({ title, children }) => {
       <Grid
         as='main'
         h='100vh'
-        templateRows='1fr 3fr 5fr'
+        templateRows='40px 3fr 5fr'
         templateColumns='80px 1fr 2fr'
         gap={4}
         p={4}
-        bg='#EFF6FC'
+        // bg='#EFF6FC'
       >
-        
         {children}
       </Grid>
     </>
   )
-}
+})

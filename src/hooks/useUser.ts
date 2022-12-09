@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { axiosClient } from "@/lib/axios"
 
 interface AuthOptions {
-  redirectOnLogin?: boolean
   redirectOnLogout?: boolean
+  redirectOnLogin?: boolean
 }
 
 const fetcher = async (url: string) => {
@@ -28,12 +28,11 @@ export function useUser(options?: AuthOptions) {
   const isLogout = error?.response.status === 401
 
   useEffect(() => {
-    if (user && !isLogout && options?.redirectOnLogin) {
-      router.push('/chats')
-    }
-
     if (isLogout && options?.redirectOnLogout) {
       router.push('/signin')
+    }
+    if (isLogout && options?.redirectOnLogin) {
+      router.push('/chats')
     }
   }, [user, isLogout])
 
