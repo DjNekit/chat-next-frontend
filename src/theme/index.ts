@@ -3,12 +3,14 @@ import { colors } from "./colors";
 import { config } from "./config";
 import { components } from './components'
 import { styles } from "./styles";
+import { borderRadius } from "./borderRadius";
 
 export default extendTheme(
   { 
     config,
     colors,
     styles,
+    ...borderRadius,
     components,
   },
   withDefaultProps({

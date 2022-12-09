@@ -1,36 +1,21 @@
-import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import Head from "next/head";
-import Router from "next/router";
+import { ReactNode } from "react";
+import { Button, Input, Stack, Text } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
 import { api } from "@/api";
 import { Link, SigninLayout } from "@/components";
 import { useUser } from "@/hooks/useUser";
-import { ReactNode } from "react";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 export default function SigninPage() {
-  const { user, isLoading, isError, mutate } = useUser()
   const { register, handleSubmit, formState: { errors } } = useForm()
-
-
-  if (isLoading) {
-    return (
-      <h1>Loading...</h1>
-    )
-  }
-
-  if (user) {
-    Router.replace('/chats')
-    return (
-      <h1>Redirect...</h1>
-    )
-  }
-
+  const router = useRouter()
 
   const onSubmit = async (data: any) => {
     const error = await api.login(data)
 
     if (!error) {
-      mutate()
+      router.push('/chats')
       return
     }
   }

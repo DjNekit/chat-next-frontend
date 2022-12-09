@@ -1,17 +1,17 @@
 import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import Head from "next/head";
+import { useForm } from "react-hook-form";
 import { Link } from "@/components/Link";
 import { SigninLayout } from "@/components";
-import { ReactNode } from "react";
-import { useForm } from "react-hook-form";
 import { useUser } from "@/hooks/useUser";
-import Router from "next/router";
 import { api } from "@/api";
 
 export default function SignupPage() {
-  const { user, isLoading, mutate } = useUser()
+  const { user, isLoading, isLogout, mutate } = useUser({
+    redirectOnLogin: true
+  })
   const { register, handleSubmit, formState: { errors } } = useForm()
-
 
   if (isLoading) {
     return (
@@ -19,8 +19,7 @@ export default function SignupPage() {
     )
   }
 
-  if (user) {
-    Router.replace('/chats')
+  if (user && !isLogout) {
     return (
       <h1>Redirect...</h1>
     )
