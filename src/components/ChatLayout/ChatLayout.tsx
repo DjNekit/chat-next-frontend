@@ -1,7 +1,7 @@
 import Head from "next/head"
 import { FC, memo, ReactNode } from "react"
 import { Grid, GridItem } from "@chakra-ui/react"
-import { Chat, Loading, SidePanel } from "@/components"
+import { ChatWindow, Loading, SidePanel } from "@/components"
 import { useUser } from "@/hooks/useUser"
 
 interface ChatLayoutProps {
@@ -26,7 +26,7 @@ export const ChatLayout: FC<ChatLayoutProps> = memo(({ title = 'Chats', children
           <SidePanel />
         </GridItem>
         <GridItem>
-          <Chat>{children}</Chat>
+          <ChatWindow>{children}</ChatWindow>
         </GridItem>
       </Grid>
     </>

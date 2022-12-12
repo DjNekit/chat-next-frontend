@@ -1,7 +1,7 @@
 
 import { useCallback, useState } from "react"
-import { Box, Center, Flex, ScaleFade, Text } from "@chakra-ui/react"
-import { Search, Menu } from "@/components"
+import { Box, Flex } from "@chakra-ui/react"
+import { Search, Menu, SearchResults, Chats } from "@/components"
 import { useSearch } from "@/hooks/useSearch"
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -45,19 +45,10 @@ export const SidePanel = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           h='inherit'
-
         >
           {showData
-            ?
-              <div>
-                {data?.users.map((user: any) =>
-                  <div key={user.id}>{user.name}</div>
-                )}
-              </div>
-            :
-              <Center h='inherit'>
-                <Text>You don't have any active chats yet</Text>
-              </Center>
+            ? <SearchResults results={data}/>
+            : <Chats />
           }
         </Box>
       </Box>
