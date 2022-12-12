@@ -1,5 +1,5 @@
 export const Input = {
   defaultProps: {
-    focusBorderColor: 'black'
+    // focusBorderColor: 'black'
   }
 }

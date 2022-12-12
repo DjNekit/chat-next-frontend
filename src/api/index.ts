@@ -1,11 +1,13 @@
 import { getUser } from './getUser';
-import { login } from "./login";
-import { logout } from "./logout";
+import { search } from './search';
+import { signin } from "./signin";
+import { signout } from "./signout";
 import { signup } from './signup';
 
 export const api = {
-  login,
+  signin,
   signup,
-  logout,
-  getUser
+  signout,
+  getUser,
+  search
 }

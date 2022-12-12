@@ -1,7 +1,8 @@
-import { Center } from "@chakra-ui/react"
+import { Center, useColorMode } from "@chakra-ui/react"
 import { InfinitySpin } from "react-loader-spinner"
 
 export const Loading = () => {
+  const { colorMode } = useColorMode()
   return (
     <Center 
       h='100vh' 
@@ -11,7 +12,10 @@ export const Loading = () => {
       left={0}
       bg='blackAlpha.50'
     >
-      <InfinitySpin width='200' color='black'/>
+      <InfinitySpin 
+        width='200' 
+        color={colorMode === 'light' ? 'black' : 'white'}
+      />
     </Center>
   )
 }

@@ -1,28 +1,33 @@
 import Head from "next/head"
 import { FC, memo, ReactNode } from "react"
-import { Grid } from "@chakra-ui/react"
+import { Grid, GridItem } from "@chakra-ui/react"
+import { ChatWindow, Loading, SidePanel } from "@/components"
+import { useUser } from "@/hooks/useUser"
 
 interface ChatLayoutProps {
-  title: string
+  title?: string
   children: ReactNode
 }
 
-export const ChatLayout: FC<ChatLayoutProps> = memo(({ title, children }) => {
+export const ChatLayout: FC<ChatLayoutProps> = memo(({ title = 'Chats', children }) => {
+  const { isLogout, isLoading } = useUser()
+
+  if (isLoading || isLogout) {
+    return <Loading />
+  }
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
 
-      <Grid
-        as='main'
-        h='100vh'
-        templateRows='40px 3fr 5fr'
-        templateColumns='80px 1fr 2fr'
-        gap={4}
-        p={4}
-      >
-        {children}
+      <Grid templateColumns='1fr 2fr'>
+        <GridItem>
+          <SidePanel />
+        </GridItem>
+        <GridItem>
+          <ChatWindow>{children}</ChatWindow>
+        </GridItem>
       </Grid>
     </>
   )
