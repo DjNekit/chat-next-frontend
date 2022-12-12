@@ -28,7 +28,6 @@ export const ChatLayout: FC<ChatLayoutProps> = memo(({ title = 'Chats', children
         <GridItem>
           <Chat>{children}</Chat>
         </GridItem>
-        
       </Grid>
     </>
   )
