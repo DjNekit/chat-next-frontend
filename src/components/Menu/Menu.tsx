@@ -1,9 +1,20 @@
 import { HamburgerIcon, MoonIcon, SettingsIcon } from "@chakra-ui/icons"
 import { Flex, FormLabel, IconButton, Menu as ChakraMenu, MenuButton, MenuItem, MenuList, Switch, useColorMode } from "@chakra-ui/react"
+import { FC, memo } from "react"
 import { ExitIcon } from "../Icons/ExitIcon"
+import { useUser } from '@/hooks/useUser'
+import { api } from "@/api"
 
-export const Menu = () => {
+interface MenuProps {}
+
+export const Menu: FC<MenuProps> = memo(() => {
   const { colorMode, toggleColorMode } = useColorMode()
+  const { mutate } = useUser()
+
+  const onSignout = async () => {
+    await api.signout()
+    mutate()
+  }
 
   return (
     <ChakraMenu>
@@ -40,10 +51,10 @@ export const Menu = () => {
             />
           </Flex>
         </MenuItem>
-        <MenuItem icon={<ExitIcon />}>
+        <MenuItem icon={<ExitIcon />} onClick={onSignout}>
           Sign out
         </MenuItem>
       </MenuList>
     </ChakraMenu>
   )
-}
+})

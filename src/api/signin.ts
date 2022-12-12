@@ -6,7 +6,7 @@ interface Credentials {
   password: string
 }
 
-export const login = async (credentials: Credentials) => {
+export const signin = async (credentials: Credentials) => {
   try {
     const res = await axiosClient.post('/api/signin', credentials, {
       baseURL: '/'

@@ -19,7 +19,7 @@ export default function SigninPage() {
   }, [user, isLogout])
 
   const onSubmit = async (data: any) => {
-    const error = await api.login(data)
+    const error = await api.signin(data)
 
     if (!error) {
       mutate()
