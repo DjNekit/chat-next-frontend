@@ -21,6 +21,7 @@ export const Menu: FC<MenuProps> = memo(() => {
       <MenuButton
         padding='11px'
         as={IconButton}
+        colorScheme='gray'
         aria-label='Options'
         icon={<HamburgerIcon boxSize='18px' />}
         variant='link'
@@ -44,9 +45,9 @@ export const Menu: FC<MenuProps> = memo(() => {
           onClick={toggleColorMode}
         >
           <Flex justifyContent='space-between' alignItems='center'>
-            <FormLabel htmlFor='dark' mb={0}>Dark mode</FormLabel>
+            <FormLabel htmlFor='dark-mode' mb={0}>Dark mode</FormLabel>
             <Switch
-              id='dark'
+              id='dark-mode'
               isChecked={colorMode === 'dark'}
             />
           </Flex>

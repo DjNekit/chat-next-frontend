@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Grid, GridItem, SimpleGrid } from "@chakra-ui/react"
+import { Box, Center, SimpleGrid } from "@chakra-ui/react"
 import Image from "next/image"
 import { FC, ReactNode } from "react"
 import { AnimatedLogo } from "./AnimatedLogo"
@@ -15,7 +15,6 @@ export const SigninLayout: FC<SigninLayoutProps> = ({ children }) => {
         md: 2
       }} 
       h='100vh' 
-      bg='black'
     >
       <Box pos='relative'>
         <Image 
@@ -32,7 +31,6 @@ export const SigninLayout: FC<SigninLayoutProps> = ({ children }) => {
           base: '5%',
           md: '0%',
         }}
-        bg='white'
       >
         {children}
       </Center>
