@@ -49,7 +49,6 @@ export default function SignupPage() {
               {...register('name', { required: true })}
               placeholder='Enter username'
               size='lg'
-              focusBorderColor='black'
               isInvalid={!!errors.name}
             />
             <Input
