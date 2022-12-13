@@ -15,9 +15,11 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
       p={3} 
       flexDirection='column' 
     >
-      <Text color='gray.500' fontWeight='semibold'>
-        Global search:
-      </Text>
+      {results?.users.length > 0 &&
+        <Text color='gray.500' fontWeight='semibold'>
+          Global search:
+        </Text>
+      }
       {results?.users.map((user: IUser) =>
         <SearchItem key={user.id} user={user}/>
       )}
