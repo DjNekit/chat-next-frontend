@@ -1,14 +1,7 @@
-import { ReactNode, useCallback } from "react";
-import { ChatLayout, Loading } from "@/components";
-import { useUser } from "@/hooks/useUser";
-import { api } from "@/api";
+import { ReactNode } from "react";
+import { ChatLayout } from "@/components";
 
 export default function ChatsPage() {
-  const { user, isLogout, isLoading, mutate } = useUser()
-
-
-  
-
   return (
     <></>
   )

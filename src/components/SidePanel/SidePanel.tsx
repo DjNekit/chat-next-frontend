@@ -1,5 +1,5 @@
 
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { Box, Flex } from "@chakra-ui/react"
 import { Search, Menu, SearchResults, Chats } from "@/components"
 import { useSearch } from "@/hooks/useSearch"

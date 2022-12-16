@@ -3,18 +3,19 @@ import { Avatar, Flex, Text } from "@chakra-ui/react"
 import { IUser } from "@/types"
 
 interface SearchItemProps {
-  user: IUser
+  name: string
+  onClick: () => void
 }
 
-export const SearchItem: FC<SearchItemProps> = ({ user }) => {
+export const SearchItem: FC<SearchItemProps> = ({ name, onClick }) => {
   return (
     <Flex
-      key={user.id}
       gap={2}
       alignItems='center'
       p={3}
       borderRadius='lg'
       cursor='pointer'
+      onClick={onClick}
       _hover={{
         bgColor: 'blackAlpha.100'
       }}
@@ -24,8 +25,8 @@ export const SearchItem: FC<SearchItemProps> = ({ user }) => {
         }
       }}
     >
-      <Avatar name={user.name} />
-      <Text fontWeight='bold'>{user.name}</Text>
+      <Avatar name={name} />
+      <Text fontWeight='bold'>{name}</Text>
     </Flex>
   )
 }

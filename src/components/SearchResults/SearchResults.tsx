@@ -1,7 +1,11 @@
-import { IUser } from "@/types"
-import { Flex, Text } from "@chakra-ui/react"
 import { FC } from "react"
+import { Flex, Text } from "@chakra-ui/react"
+import { useAppSelector } from "@/hooks/useAppSelector"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+
 import { SearchItem } from "./SearchItem"
+import { chatActions } from '@/redux/slices/chat.slice'
+import { IUser } from "@/types"
 
 interface SearchResultsProps {
   results: {
@@ -10,6 +14,12 @@ interface SearchResultsProps {
 }
 
 export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
+  const dispatch = useAppDispatch()
+
+  const onSearchItemClick = (user: IUser) => {
+    dispatch(chatActions.setChat(user))
+  }
+
   return (
     <Flex 
       p={3} 
@@ -21,7 +31,11 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
         </Text>
       }
       {results?.users.map((user: IUser) =>
-        <SearchItem key={user.id} user={user}/>
+        <SearchItem 
+          key={user.id}
+          name={user.name}
+          onClick={() => onSearchItemClick(user)}
+        />
       )}
     </Flex>
   )
