@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IUser } from "@/types";
+import { IChat, IUser } from "@/types";
 
 interface IChatState {
-  activeChat: IUser | null
+  activeChat: any
 }
 
 const initialState: IChatState = {
@@ -13,7 +13,7 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    setChat: (state, action: PayloadAction<IUser>) => {
+    setChat: (state, action: PayloadAction<IChat>) => {
       state.activeChat = action.payload
     }
   }

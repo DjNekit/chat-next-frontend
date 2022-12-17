@@ -1,7 +1,12 @@
 import useSWR from "swr"
 
 export const useChats = () => {
-  const { data: chats, error, mutate } = useSWR('/v1/chats')
+  const { data, error, mutate } = useSWR('/v1/chats', {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
+  const chats = data?.chats
 
   return {
     chats,

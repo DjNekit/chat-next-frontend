@@ -1,16 +1,29 @@
-import { ReactNode } from "react";
-import { ChatLayout } from "@/components";
+import Head from "next/head";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { useUser } from "@/hooks/useUser";
+import { ChatWindow, Loading, SidePanel } from "@/components";
 
 export default function ChatsPage() {
-  return (
-    <></>
-  )
-}
+  const { isLogout, isLoading } = useUser()
 
-ChatsPage.getLayout = function getLayout(page: ReactNode) {
+  if (isLoading || isLogout) {
+    return <Loading />
+  }
+
   return (
-    <ChatLayout title='Chats'>
-      {page}
-    </ChatLayout>
+    <>
+      <Head>
+        <title>Chats</title>
+      </Head>
+
+      <Grid templateColumns='1fr 2fr'>
+        <GridItem>
+          <SidePanel />
+        </GridItem>
+        <GridItem>
+          <ChatWindow />
+        </GridItem>
+      </Grid>
+    </>
   )
 }

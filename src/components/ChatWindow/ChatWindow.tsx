@@ -1,12 +1,10 @@
-import { Box } from "@chakra-ui/react"
-import { FC, ReactNode } from "react"
+import { Box, Grid } from "@chakra-ui/react"
+import { FC } from "react"
 import bg from '@/assets/images/chat-bg.png'
 
-interface ChatProps {
-  children?: ReactNode
-}
+interface ChatProps {}
 
-export const ChatWindow: FC<ChatProps> = ({ children }) => {
+export const ChatWindow: FC<ChatProps> = () => {
   return (
     <Box 
       h='100%'
@@ -15,9 +13,13 @@ export const ChatWindow: FC<ChatProps> = ({ children }) => {
         bgGradient: 'linear(to-br, black)'
       }}
     >
-      <Box h='inherit' bgImg={`url(${bg.src})`}>
-        {children}
-      </Box>
+      <Grid
+        templateRows='40px'
+        h='inherit' 
+        bgImg={`url(${bg.src})`}
+      >
+        <Box>Heh</Box>
+      </Grid>
     </Box>
   )
 }

@@ -1,13 +1,13 @@
 import { FC } from "react"
 import { Avatar, Flex, Text } from "@chakra-ui/react"
-import { IUser } from "@/types"
 
-interface SearchItemProps {
+interface ChatItemProps {
   name: string
+  isActive?: boolean
   onClick: () => void
 }
 
-export const SearchItem: FC<SearchItemProps> = ({ name, onClick }) => {
+export const ChatItem: FC<ChatItemProps> = ({ name, isActive, onClick }) => {
   return (
     <Flex
       gap={2}
@@ -15,13 +15,16 @@ export const SearchItem: FC<SearchItemProps> = ({ name, onClick }) => {
       p={3}
       borderRadius='lg'
       cursor='pointer'
+      bgColor={isActive ? 'telegram.400' : undefined}
+
       onClick={onClick}
       _hover={{
-        bgColor: 'blackAlpha.100'
+        bgColor: !isActive && 'blackAlpha.100'
       }}
       _dark={{
+        bgColor: isActive ? 'telegram.800' : undefined,
         _hover: {
-          bgColor: 'whiteAlpha.100'
+          bgColor: !isActive && 'whiteAlpha.100'
         }
       }}
     >
