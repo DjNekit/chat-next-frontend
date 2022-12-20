@@ -21,7 +21,7 @@ axiosClient.interceptors.response.use(undefined, async (error) => {
   const { url, method, data } = error.config
   const failedRequestBody = data ? JSON.parse(data) : null
 
-  if (error.response.status !== 401 || url === '/api/refresh') {
+  if (error?.response.status !== 401 || url === '/api/refresh') {
     return Promise.reject(error);
   }
 

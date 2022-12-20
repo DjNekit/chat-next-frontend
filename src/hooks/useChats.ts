@@ -1,17 +1,8 @@
-import useSWR from "swr"
+import { ChatsContext } from "@/contexts"
+import { useContext } from "react"
 
 export const useChats = () => {
-  const { data, error, mutate } = useSWR('/v1/chats', {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  })
-  const chats = data?.chats
+  const chatApi = useContext(ChatsContext)
 
-  return {
-    chats,
-    isLoading: !chats && !error,
-    isError: error?.response || error,
-    mutate
-  }
+  return chatApi
 }

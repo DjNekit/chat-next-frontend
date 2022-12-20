@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   const logout = async () => {
-    await api.logout()
+    await api.signout()
     mutate()
   }
   
