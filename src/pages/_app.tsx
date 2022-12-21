@@ -35,7 +35,7 @@ export default function App({
   const [chatChannel, setChatChannel] = useState<Socket | null>(null)
 
   useEffect(() => {
-    const socket = io('ws://localhost:4000')
+    const socket = io(process.env.NEXT_PUBLIC_API!)
     socket.on('connect', () => {
       setChatChannel(socket)
       socket.emit('events', { data: 'Hello from client' })
