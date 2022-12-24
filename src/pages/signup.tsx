@@ -5,31 +5,31 @@ import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link } from "@/components/Link";
 import { Loading, SigninLayout } from "@/components";
-import { useUser } from "@/hooks/useUser";
+// import { useUser } from "@/hooks/useUser";
 import { api } from "@/api";
 
 export default function SignupPage() {
-  const { user, isLoading, isLogout, mutate } = useUser({
-    redirectOnLogin: true
-  })
+  // const { user, isLoading, isLogout, mutate } = useUser({
+  //   redirectOnLogin: true
+  // })
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  useEffect(() => {
-    if (user && !isLogout) {
-      router.replace('/chats')
-    }
-  }, [user, isLogout])
+  // useEffect(() => {
+  //   if (user && !isLogout) {
+  //     router.replace('/chats')
+  //   }
+  // }, [user, isLogout])
 
-  if (user && !isLogout) {
-    return <Loading />
-  }
+  // if (user && !isLogout) {
+  //   return <Loading />
+  // }
 
   const onSubmit = async (data: any) => {
-    const error = await api.signup(data)
+    // const error = await api.signup(data)
 
-    if (!error) {
-      mutate()
-    }
+    // if (!error) {
+    //   mutate()
+    // }
   }
 
   return (

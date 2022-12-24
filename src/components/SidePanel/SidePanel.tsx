@@ -1,5 +1,5 @@
 
-import { useCallback, useMemo, useState } from "react"
+import { memo, useCallback, useMemo, useState } from "react"
 import { Box, Flex } from "@chakra-ui/react"
 import { Search, Menu, SearchResults, Chats } from "@/components"
 import { useSearch } from "@/hooks/useSearch"
@@ -16,7 +16,7 @@ const variants = {
   }
 }
 
-export const SidePanel = () => {
+export const SidePanel = memo(() => {
   const [searchValue, setSearchValue] = useState('')
   const { data, showData } = useSearch(searchValue)
 
@@ -54,4 +54,4 @@ export const SidePanel = () => {
       </Box>
     </Flex>
   )
-}
+})

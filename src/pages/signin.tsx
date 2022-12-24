@@ -3,30 +3,31 @@ import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { api } from "@/api";
 import { Link, Loading, SigninLayout } from "@/components";
-import { useUser } from "@/hooks/useUser";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useSigninMutation } from "@/redux/api/auth";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 export default function SigninPage() {
   const router = useRouter()
-  const { user, isLogout, isLoading, mutate, isValidating} = useUser()
+  const dispatch = useAppDispatch()
+  // const { user, isLogout, isLoading, mutate, isValidating} = useUser()
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [signin, { isLoading }] = useSigninMutation()
+  const { isAuth } = useAppSelector(state => state.auth)
+  console.log(isAuth)
 
   useEffect(() => {
-    if (user && !isLogout) {
+    if (isAuth) {
       router.replace('/chats')
     }
-  }, [user, isLogout])
+  }, [isAuth])
 
   const onSubmit = async (data: any) => {
-    const error = await api.signin(data)
-
-    if (!error) {
-      mutate()
-    }
+    signin(data)
   }
 
-  if (user && !isLogout) {
+  if (isAuth) {
     return <Loading />
   }
 
@@ -49,7 +50,7 @@ export default function SigninPage() {
               placeholder='Password'
               size='lg'
             />
-            <Button type="submit">Sign in</Button>
+            <Button type="submit" isLoading={isLoading}>Sign in</Button>
             <Text textAlign='center'>
               Don't have account? <Link href='/signup'>Sign Up!</Link>
             </Text>

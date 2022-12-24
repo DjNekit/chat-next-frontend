@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { chatActions } from '@/redux/slices/chat.slice'
 import { IUser } from "@/types"
 import { ChatItem } from "../ChatItem/ChatItem"
-import { useUser } from "@/hooks/useUser"
+// import { useUser } from "@/hooks/useUser"
 
 interface SearchResultsProps {
   results: {
@@ -14,15 +14,15 @@ interface SearchResultsProps {
 }
 
 export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
-  const { user: currentUser } = useUser()
+  // const { user: currentUser } = useUser()
   const dispatch = useAppDispatch()
 
   const onSearchItemClick = (user: IUser) => {
-    dispatch(chatActions.setChat({
-      isGroup: false,
-      members: [currentUser, user],
-      messages: []
-    }))
+    // dispatch(chatActions.setChat({
+    //   isGroup: false,
+    //   members: [currentUser, user],
+    //   messages: []
+    // }))
   }
 
   return (
