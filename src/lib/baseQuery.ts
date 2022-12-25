@@ -12,5 +12,5 @@ export const baseQuery = fetchBaseQuery({
 
     return headers
   },
-  // credentials: 'include'
+  credentials: 'include'
 })

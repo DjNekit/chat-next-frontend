@@ -3,6 +3,9 @@ import dynamic from "next/dynamic";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { ChatWindow, SidePanel } from "@/components";
 import { useUserQuery } from "@/redux/api/auth";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { chatActions } from "@/redux/slices/chat.slice";
 
 const AuthGuard = dynamic(() => 
   import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)
@@ -10,8 +13,13 @@ const AuthGuard = dynamic(() =>
 
 export default function ChatsPage() {
   const { data } = useUserQuery({})
+  const dispatch = useAppDispatch()
   console.log(data)
 
+  useEffect(() => {
+    dispatch(chatActions.startConnection())
+  }, [])
+ 
   return (
     <AuthGuard>
       <Head>

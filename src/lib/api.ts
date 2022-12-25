@@ -17,7 +17,6 @@ export const authFetch: BaseQueryFn<
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
 
-
       try {
         const refreshResult = await baseQuery(
           { 
