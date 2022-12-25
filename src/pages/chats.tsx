@@ -1,65 +1,39 @@
-import { ReactNode, useCallback } from "react";
-import { ChatLayout, Segment, Navbar, Loading } from "@/components";
-import { useUser } from "@/hooks/useUser";
-import { GridItem, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import { api } from "@/api";
-import { useRouter } from "next/router";
+import Head from "next/head";
+import dynamic from "next/dynamic";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { ChatWindow, SidePanel } from "@/components";
+import { useUserQuery } from "@/redux/api/auth";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { chatActions } from "@/redux/slices/chat.slice";
+
+const AuthGuard = dynamic(() => 
+  import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)
+)
 
 export default function ChatsPage() {
-  const { user, isLoading, isError } = useUser({ 
-    redirectOnLogout: true 
-  })
-  const router = useRouter() 
+  const { data } = useUserQuery({})
+  const dispatch = useAppDispatch()
 
-  const onLogout = useCallback(async () => {
-    await api.logout()
-    router.push('/signin')
+  useEffect(() => {
+    dispatch(chatActions.startConnection())
   }, [])
-
-  if (isLoading || isError) {
-    return <Loading />
-  }
-
+ 
   return (
-    <>
-      <GridItem rowSpan={3} colSpan={1}>
-        <Navbar onLogout={onLogout} />
-      </GridItem>
-      <GridItem>
-        <Segment>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents='none'
-              children={<SearchIcon color='gray.300' p={0} />}
-            />
-            <Input
-              placeholder='Search'
-              border='none'
-              focusBorderColor='none'
-            />
-          </InputGroup>
-        </Segment>
-      </GridItem>
-      <GridItem rowSpan={3}>
-        <Segment padded>
-          Chat
-        </Segment>
-      </GridItem>
-      <GridItem>
-        <Segment padded>Chat Group</Segment>
-      </GridItem>
-      <GridItem>
-        <Segment padded>Contacts</Segment>
-      </GridItem>
-    </>
+    <AuthGuard>
+      <Head>
+        <title>Chats</title>
+      </Head>
+
+      <Grid templateColumns='1fr 2fr'>
+        <GridItem>
+          <SidePanel />
+        </GridItem>
+        <GridItem>
+          <ChatWindow />
+        </GridItem>
+      </Grid>
+    </AuthGuard>
   )
 }
 
-ChatsPage.getLayout = function getLayout(page: ReactNode) {
-  return (
-    <ChatLayout title='Chats'>
-      {page}
-    </ChatLayout>
-  )
-}

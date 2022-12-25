@@ -15,7 +15,7 @@ export default extendTheme(
   },
   withDefaultProps({
     defaultProps: {
-      colorScheme: 'brand',
+      colorScheme: 'telegram',
     },
     components: ['Button']
   }),
