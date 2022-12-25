@@ -1,32 +1,38 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect } from "react";
-import { Button, Input, Stack, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { api } from "@/api";
 import { Link, Loading, SigninLayout } from "@/components";
-import { useUser } from "@/hooks/useUser";
+import { useSigninMutation } from "@/redux/api/auth";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { motion } from "framer-motion";
 
 export default function SigninPage() {
   const router = useRouter()
-  const { user, isLogout, isLoading, mutate, isValidating} = useUser()
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm()
+  const [signin, { isLoading }] = useSigninMutation()
+  const { isAuth } = useAppSelector(state => state.auth)
 
   useEffect(() => {
-    if (user && !isLogout) {
+    if (isAuth) {
       router.replace('/chats')
     }
-  }, [user, isLogout])
+  }, [isAuth])
 
   const onSubmit = async (data: any) => {
-    const error = await api.signin(data)
+    signin(data)
+      .unwrap()
+      .catch(error => setError('submit', error.data))
+  }
 
-    if (!error) {
-      mutate()
+  const clearSubmitError = () => {
+    if (errors.submit) {
+      clearErrors('submit')
     }
   }
 
-  if (user && !isLogout) {
+  if (isAuth) {
     return <Loading />
   }
 
@@ -43,13 +49,28 @@ export default function SigninPage() {
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
+              isInvalid={!!errors.submit || !!errors.email}
+              onChange={clearSubmitError}
             />
-            <Input
-              {...register('password', { required: true })}
-              placeholder='Password'
-              size='lg'
-            />
-            <Button type="submit">Sign in</Button>
+            <Box>
+              <Input
+                {...register('password', { required: true })}
+                placeholder='Password'
+                size='lg'
+                isInvalid={!!errors.submit || !!errors.password}
+                onChange={clearSubmitError}
+              />
+              {errors.submit &&
+                <Text 
+                  as={motion.div} 
+                  color='red.500' 
+                  mt={1}
+                >
+                  Email or password is invalide
+                </Text>
+              }
+            </Box>
+            <Button type="submit" isLoading={isLoading}>Sign in</Button>
             <Text textAlign='center'>
               Don't have account? <Link href='/signup'>Sign Up!</Link>
             </Text>

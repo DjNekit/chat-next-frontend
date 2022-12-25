@@ -2,20 +2,20 @@ import { Button, useColorMode } from '@chakra-ui/react'
 import Head from 'next/head'
 import { api } from '@/api'
 import { Link } from '@/components/Link'
-import { useUser } from '@/hooks/useUser'
+// import { useUser } from '@/hooks/useUser'
 import { Loading } from '@/components'
 
 export default function Home() {
-  const { user, isLoading, mutate } = useUser({ disableRedirect: true })
+  // const { user, isLoading, mutate } = useUser({ disableRedirect: true })
   const { toggleColorMode } = useColorMode()
 
-  if (isLoading) {
-    return <Loading />
-  }
+  // if (isLoading) {
+  //   return <Loading />
+  // }
 
   const logout = async () => {
-    await api.logout()
-    mutate()
+    // await api.signout()
+    // mutate()
   }
   
   return (
@@ -29,7 +29,7 @@ export default function Home() {
         <h1>Home Page</h1>
         <h2>NODE_ENV: {process.env.NODE_ENV}</h2>
         <div>
-          {user ?
+          {true ?
             <>
               <Link href='/chats'>Chats</Link>
               <Button onClick={logout}>Logout</Button>
