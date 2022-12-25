@@ -26,6 +26,14 @@ export default function SignupPage() {
 
   const onSubmit = async (data: any) => {
     signup(data)
+      .unwrap()
+      .catch(error => setError('submit', error.data))
+  }
+
+  const clearSubmitError = () => {
+    if (errors.submit) {
+      clearErrors('submit')
+    }
   }
 
   return (
@@ -46,18 +54,21 @@ export default function SignupPage() {
               placeholder='Enter username'
               size='lg'
               isInvalid={!!errors.name}
+              onChange={clearSubmitError}
             />
             <Input
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
               isInvalid={!!errors.email}
+              onChange={clearSubmitError}
             />
             <Input
               {...register('password', { required: true })}
               placeholder='Password'
               size='lg'
               isInvalid={!!errors.password}
+              onChange={clearSubmitError}
             />
             <Button type='submit'>Sign up</Button>
             <Text textAlign='center'>
@@ -69,3 +80,11 @@ export default function SignupPage() {
     </>
   )
 }
+
+function setError(arg0: string, data: any): any {
+  throw new Error("Function not implemented.");
+}
+function clearErrors(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

@@ -15,18 +15,15 @@ export const wsMiddleware: Middleware = (store: any) => {
 
       socket.on('connect', () => {
         store.dispatch(chatActions.connectionEstablished());
-        // socket.emit('connect');
         console.log('connect')
       })
 
       socket.on('message', (message: any) => {
-        // store.dispatch(chatActions.receiveMessage({ message }));
         console.log(message)
       })
     }
 
     if (chatActions.submitMessage.match(action) && isConnectionEstablished) {
-      // socket.emit('send-message', action.payload);
       console.log(action.payload)
     }
 

@@ -49,7 +49,7 @@ export default function SigninPage() {
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
-              isInvalid={!!errors.error}
+              isInvalid={!!errors.submit || !!errors.email}
               onChange={clearSubmitError}
             />
             <Box>
@@ -57,10 +57,10 @@ export default function SigninPage() {
                 {...register('password', { required: true })}
                 placeholder='Password'
                 size='lg'
-                isInvalid={!!errors.error}
+                isInvalid={!!errors.submit || !!errors.password}
                 onChange={clearSubmitError}
               />
-              {errors.error &&
+              {errors.submit &&
                 <Text 
                   as={motion.div} 
                   color='red.500' 

@@ -14,7 +14,6 @@ const AuthGuard = dynamic(() =>
 export default function ChatsPage() {
   const { data } = useUserQuery({})
   const dispatch = useAppDispatch()
-  console.log(data)
 
   useEffect(() => {
     dispatch(chatActions.startConnection())
