@@ -12,7 +12,7 @@ export const Chats = memo(() => {
   // const { chats, isLoading, isError } = useChats()
   const activeChat = useAppSelector(state => state.chat.activeChat)
   const dispatch = useAppDispatch()
-  console.log(activeChat)
+  // console.log(activeChat)
 
   // if (isLoading && !chats) {
   //   return (
