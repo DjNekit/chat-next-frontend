@@ -9,45 +9,45 @@ import { IChat, IUser } from "@/types"
 import { memo } from "react"
 
 export const Chats = memo(() => {
-  const { chats, isLoading, isError } = useChats()
+  // const { chats, isLoading, isError } = useChats()
   const activeChat = useAppSelector(state => state.chat.activeChat)
   const dispatch = useAppDispatch()
-  console.log(activeChat)
+  // console.log(activeChat)
 
-  if (isLoading && !chats) {
-    return (
-      <Center h='100%'>
-        <Spinner />
-      </Center>
-    )
-  }
+  // if (isLoading && !chats) {
+  //   return (
+  //     <Center h='100%'>
+  //       <Spinner />
+  //     </Center>
+  //   )
+  // }
 
-  if (!chats && !isLoading) {
+  // if (!chats && !isLoading) {
     return (
       <Center h='100%'>
         <Text>You don't have any active chats yet</Text>
       </Center>
     )
-  }
+  // }
 
-  return (
-    <Flex
-      pt={5}
-      flexDirection='column' 
-    >
-      {chats.map((chat: IChat) => {
-        const adressee = chat.members
-          .find((member: IUser) => member.id !== chat.creatorId)!
+  // return (
+  //   <Flex
+  //     pt={5}
+  //     flexDirection='column' 
+  //   >
+  //     {chats.map((chat: IChat) => {
+  //       const adressee = chat.members
+  //         .find((member: IUser) => member.id !== chat.creatorId)!
 
-        return (
-          <ChatItem
-            key={chat.id}
-            name={adressee.name}
-            isActive={activeChat?.id === chat.id}
-            onClick={() => dispatch(chatActions.setChat(chat))}
-          />
-        )
-      })}
-    </Flex>
-  )
+  //       return (
+  //         <ChatItem
+  //           key={chat.id}
+  //           name={adressee.name}
+  //           isActive={activeChat?.id === chat.id}
+  //           onClick={() => dispatch(chatActions.setChat(chat))}
+  //         />
+  //       )
+  //     })}
+  //   </Flex>
+  // )
 })
