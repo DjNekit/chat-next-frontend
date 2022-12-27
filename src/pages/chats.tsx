@@ -6,6 +6,7 @@ import { useUserQuery } from "@/redux/api/auth";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { chatActions } from "@/redux/slices/chat.slice";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 const AuthGuard = dynamic(() => 
   import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)
@@ -13,12 +14,7 @@ const AuthGuard = dynamic(() =>
 
 export default function ChatsPage() {
   const { data } = useUserQuery({})
-  const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    dispatch(chatActions.startConnection())
-  }, [])
- 
   return (
     <AuthGuard>
       <Head>

@@ -1,5 +1,4 @@
-import { Center, Flex, Spinner, Text } from "@chakra-ui/react"
-import { useChats } from "@/hooks/useChats"
+import { Button, Center, Flex, Spinner, Text } from "@chakra-ui/react"
 import { useAppSelector } from "@/hooks/useAppSelector"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 
@@ -9,10 +8,11 @@ import { IChat, IUser } from "@/types"
 import { memo } from "react"
 
 export const Chats = memo(() => {
-  // const { chats, isLoading, isError } = useChats()
   const activeChat = useAppSelector(state => state.chat.activeChat)
   const dispatch = useAppDispatch()
-  // console.log(activeChat)
+  const onClick = () => {
+    dispatch(chatActions.submitMessage({}))
+  }
 
   // if (isLoading && !chats) {
   //   return (
@@ -26,6 +26,7 @@ export const Chats = memo(() => {
     return (
       <Center h='100%'>
         <Text>You don't have any active chats yet</Text>
+        <Button onClick={onClick}>Emit</Button>
       </Center>
     )
   // }

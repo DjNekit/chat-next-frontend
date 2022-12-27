@@ -11,7 +11,6 @@ export function redirectHandler(url: string) {
     try {
       const { body, headers, method } = req;
       const axiosMethod = method!.toLowerCase() as Methods
-      console.log(headers)
 
       const { data, headers: returnedHeaders, status } = await axios({
         url: `${process.env.API}${url}`,
@@ -19,11 +18,7 @@ export function redirectHandler(url: string) {
         headers,
         data: body
       })
-        // body,
-        // { headers }
 
-      // console.log(returnedHeaders)
-      
       //? Подставляю оригинальные хэдеры с куками в прокси ответ
       Object.entries(returnedHeaders).forEach(([headerKey, value]) => {
         res.setHeader(headerKey, value as string)

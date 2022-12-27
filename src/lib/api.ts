@@ -26,7 +26,6 @@ export const authFetch: BaseQueryFn<
           api, 
           extraOptions
         )
-        console.log(refreshResult)
 
         const accessToken = (refreshResult.data as any).accessToken
 

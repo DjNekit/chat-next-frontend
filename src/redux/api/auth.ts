@@ -26,7 +26,14 @@ export const authApi = api.injectEndpoints({
       query: () => ({
         url: '/api/auth/current-user'
       })
+    }),
+    refreshTokens: build.query({
+      query: () => ({
+        url: '/api/auth/refresh',
+        method: 'POST'
+      })
     })
+
   })
 })
 

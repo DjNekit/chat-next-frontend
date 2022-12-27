@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { chatReducer } from "./slices/chat.slice";
 import { authReducer } from "./slices/auth.slice";
 import { api } from "@/lib/api";
-import { wsMiddleware } from "./api/ws.middleware";
+import { wsMiddleware } from "./middleware/ws.middleware";
 
 export const store = configureStore({
   reducer: {

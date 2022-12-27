@@ -4,13 +4,15 @@ import { IChat, IUser } from "@/types";
 interface IChatState {
   activeChat: any
   isEstablishingConnection: boolean
-  isConnect: boolean
+  isConnect: boolean,
+  error: ''
 }
 
 const initialState: IChatState = {
   activeChat: null,
   isEstablishingConnection: false,
-  isConnect: false
+  isConnect: false,
+  error: ''
 }
 
 export const chatSlice = createSlice({
@@ -23,6 +25,10 @@ export const chatSlice = createSlice({
     connectionEstablished: (state) => {
       state.isConnect = true
       state.isEstablishingConnection = true
+    },
+    setError: (state, action) => {
+      state.error = action.payload.message
+      state.isEstablishingConnection = false
     },
     receiveMessage: ((state, action) => {
       console.log(action.payload)

@@ -1,4 +1,3 @@
-import { signout } from './../../api/signout';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IUser } from '@/types';
 import { authApi } from '../api/auth';
@@ -47,16 +46,22 @@ export const authSlice = createSlice({
     
     builder
       .addMatcher(authApi.endpoints.user.matchFulfilled, (state, { payload }) => {
-        console.log(payload)
         state.user = payload
         state.isAuth = true
       })
 
     builder
       .addMatcher(authApi.endpoints.signout.matchFulfilled, (state, { payload }) => {
-        console.log(payload)
         state.user = payload
         state.isAuth = false
+      })
+
+    builder
+      .addMatcher(authApi.endpoints.refreshTokens.matchFulfilled, (state, { payload }) => {
+        state.accessToken = payload.accessToken
+      })
+      .addMatcher(authApi.endpoints.refreshTokens.matchRejected, () => {
+        return initialState
       })
   },
 })
