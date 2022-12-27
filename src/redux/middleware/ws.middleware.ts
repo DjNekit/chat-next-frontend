@@ -3,13 +3,6 @@ import { chatActions } from "../slices/chat.slice";
 import { Socket, io } from "socket.io-client";
 import { RootState } from "../store";
 import { authActions } from "../slices/auth.slice";
-import { authApi } from "../api/auth";
-import { Mutex } from "async-mutex";
-import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
-
-const mutex = new Mutex()
-
-let counter = 0
 
 export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
   let socket: Socket
@@ -35,7 +28,6 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
       });
 
       socket.on('error', async (error) => {
-        await mutex.waitForUnlock()
         const isAuthError = error.statusCode === 401
 
         if (isAuthError) {
@@ -49,6 +41,7 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
 
           if (accessToken) {
             dispatch(authActions.setToken(accessToken))
+            
             socket.auth = {
               token: accessToken
             }
@@ -66,11 +59,7 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
       })
     }
 
-
     if (chatActions.submitMessage.match(action) && isConnect) {
-      const accessToken = (getState() as RootState).auth.accessToken
-      // socket.auth = { token: accessToken }
-
       socket.emit('events', {
         message: 'hi from client'
       })
