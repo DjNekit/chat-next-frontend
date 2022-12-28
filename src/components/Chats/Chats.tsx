@@ -5,11 +5,12 @@ import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { ChatItem } from "../ChatItem/ChatItem"
 import { chatActions } from "@/redux/slices/chat.slice"
 import { IChat, IUser } from "@/types"
-import { memo } from "react"
+import { memo, useEffect } from "react"
 
 export const Chats = memo(() => {
   const activeChat = useAppSelector(state => state.chat.activeChat)
   const dispatch = useAppDispatch()
+
   const onClick = () => {
     dispatch(chatActions.submitMessage({}))
   }

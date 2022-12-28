@@ -9,14 +9,20 @@ export function redirectHandler(url: string) {
     res: NextApiResponse
   ) {
     try {
-      const { body, headers, method } = req;
+      const { body, query, headers, method } = req;
       const axiosMethod = method!.toLowerCase() as Methods
 
+      const queryString = Object.entries(query)
+        .reduce((result, [key, value]) => {
+          const divider = result === '' ? '?' : '&'
+          return `${result}${divider}${key}=${value}`
+        }, '')
+
       const { data, headers: returnedHeaders, status } = await axios({
-        url: `${process.env.API}${url}`,
+        url: `${process.env.API}${url}${queryString}`,
         method: axiosMethod,
         headers,
-        data: body
+        data: body,
       })
 
       //? Подставляю оригинальные хэдеры с куками в прокси ответ

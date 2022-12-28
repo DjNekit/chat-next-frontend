@@ -1,9 +1,9 @@
 
-import { memo, useCallback, useMemo, useState } from "react"
-import { Box, Flex } from "@chakra-ui/react"
+import { memo, useCallback, useEffect, useMemo, useState } from "react"
+import { Box, Flex, useBoolean } from "@chakra-ui/react"
 import { Search, Menu, SearchResults, Chats } from "@/components"
-import { useSearch } from "@/hooks/useSearch"
 import { AnimatePresence, motion } from 'framer-motion'
+import { useSearchMutation } from "@/redux/api/chat"
 
 const variants = {
   show: {
@@ -16,11 +16,20 @@ const variants = {
   }
 }
 
-export const SidePanel = memo(() => {
+export const SidePanel = memo(() => {  
   const [searchValue, setSearchValue] = useState('')
-  const { data, showData } = useSearch(searchValue)
+  const [search, { data: searchUsers }] = useSearchMutation()
+
+  const needShowResults = (searchValue: string) => {
+    return searchValue.length > 2 ? true : false
+  }
+
+  const showData = needShowResults(searchValue)
 
   const onSeachChange = useCallback(async (value: string) => {
+    if (needShowResults(value)) {
+      search(value)
+    }
     setSearchValue(value)
   }, [])
 
@@ -41,13 +50,14 @@ export const SidePanel = memo(() => {
         <Box 
           as={motion.div}
           key={showData ? 'searchResults' : 'contacts'}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          variants={variants}
+          initial='hidden'
+          animate='show'
+          exit='hidden'
           h='inherit'
         >
           {showData
-            ? <SearchResults results={data}/>
+            ? <SearchResults results={searchUsers}/>
             : <Chats />
           }
         </Box>

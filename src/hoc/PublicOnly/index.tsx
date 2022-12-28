@@ -3,11 +3,11 @@ import { useAppSelector } from "@/hooks/useAppSelector"
 import { Loading } from "@/components"
 import { useRouter } from "next/router"
 
-interface HideForAuthProps {
+interface PublicOnlyProps {
   children: ReactNode
 }
 
-export const HideForAuth: FC<HideForAuthProps> = ({ children }) => {
+export const PublicOnly: FC<PublicOnlyProps> = ({ children }) => {
   const router = useRouter()
   const { isAuth } = useAppSelector(state => state.auth)
 

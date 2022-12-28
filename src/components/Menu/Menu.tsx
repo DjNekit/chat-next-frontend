@@ -1,9 +1,7 @@
+import { FC, memo } from "react"
 import { HamburgerIcon, MoonIcon, SettingsIcon } from "@chakra-ui/icons"
 import { Flex, FormLabel, IconButton, Menu as ChakraMenu, MenuButton, MenuItem, MenuList, Switch, useColorMode } from "@chakra-ui/react"
-import { FC, memo } from "react"
 import { ExitIcon } from "../Icons/ExitIcon"
-// import { useUser } from '@/hooks/useUser'
-import { api } from "@/api"
 import { useSignoutMutation } from "@/redux/api/auth"
 
 interface MenuProps {}
