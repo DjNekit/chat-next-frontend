@@ -1,7 +1,12 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
-import { authActions } from '../redux/slices/auth.slice'
 import { baseQuery } from './baseQuery'
+import { createAction } from '@reduxjs/toolkit'
+
+//? Вручную создаю action creators для избегания циркулярной зависимости
+export const signout = createAction('auth/signout')
+export const setToken = createAction('auth/setToken')
+
 
 const mutex = new Mutex()
 
@@ -30,13 +35,14 @@ export const authFetch: BaseQueryFn<
         const accessToken = (refreshResult.data as any).accessToken
 
         if (accessToken) {
-          api.dispatch(authActions.setToken(accessToken))
+          console.log(accessToken)
+          api.dispatch(setToken(accessToken))
           result = await baseQuery(args, api, extraOptions)
         } else {
-          api.dispatch(authActions.signout())
+          api.dispatch(signout())
         }
       } catch(e) {
-        api.dispatch(authActions.signout())
+        api.dispatch(signout())
       } finally {
         release()
       }
@@ -52,5 +58,6 @@ export const authFetch: BaseQueryFn<
 export const api = createApi({
   reducerPath: 'splitApi',
   baseQuery: authFetch,
-  endpoints: () => ({}),
+  endpoints: () => ({})
 })
+

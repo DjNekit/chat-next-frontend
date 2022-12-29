@@ -18,8 +18,8 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
   const dispatch = useAppDispatch()
 
   const onSearchItemClick = (user: IUser) => {
+
     // dispatch(chatActions.setChat({
-    //   isGroup: false,
     //   members: [currentUser, user],
     //   messages: []
     // }))
@@ -39,6 +39,7 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
         <ChatItem 
           key={user.id}
           name={user.name}
+          email={user.email}
           onClick={() => onSearchItemClick(user)}
         />
       )}

@@ -1,18 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IChat, IUser } from "@/types";
+import { chatApi } from "../api/chat";
 
 interface IChatState {
   activeChat: any
   isEstablishingConnection: boolean
   isConnect: boolean,
   error: ''
+
+  chats: any[]
 }
 
 const initialState: IChatState = {
   activeChat: null,
   isEstablishingConnection: false,
   isConnect: false,
-  error: ''
+  error: '',
+  chats: []
 }
 
 export const chatSlice = createSlice({
@@ -30,15 +34,21 @@ export const chatSlice = createSlice({
       state.error = action.payload.message
       state.isEstablishingConnection = false
     },
-    receiveMessage: ((state, action) => {
+    receiveMessage: (state, action) => {
       console.log(action.payload)
-    }),
-    submitMessage: ((state, action) => {
+    },
+    submitMessage: (state, action) => {
       return;
-    }),
+    },
     setChat: (state, action: PayloadAction<IChat>) => {
       state.activeChat = action.payload
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addMatcher(chatApi.endpoints.chats.matchFulfilled, (state, action) => {
+        state.chats = action.payload.chats
+      })
   }
 })
 

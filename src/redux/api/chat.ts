@@ -6,11 +6,17 @@ export const chatApi = api.injectEndpoints({
       query: (searchValue: string) => ({
         url: `/api/chat/search?value=${searchValue}`
       })
+    }),
+    chats: build.query({
+      query: () => ({
+        url: '/api/chat/getChats'
+      })
     })
   })
 })
 
 
 export const {
-  useSearchMutation
+  useSearchMutation,
+  useChatsQuery
 } = chatApi

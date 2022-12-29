@@ -5,17 +5,20 @@ import { useRouter } from "next/router"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { chatActions } from "@/redux/slices/chat.slice"
 import { useToast } from "@chakra-ui/react"
+import { useUserQuery } from "@/redux/api/auth"
 
 interface AuthGuardProps {
   children: ReactNode
 }
 
 export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
+  useUserQuery({})
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const toast = useToast()
+  
   const { isAuth, isFirstLoading } = useAppSelector(state => state.auth)
   const { isConnect, error } = useAppSelector(state => state.chat)
-  const toast = useToast()
 
   useEffect(() => {
     if (!isAuth && !isFirstLoading) {

@@ -4,15 +4,17 @@ import { useEffect } from "react";
 import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link, Loading, SigninLayout } from "@/components";
-import { useSigninMutation } from "@/redux/api/auth";
+import { useSigninMutation, useUserQuery } from "@/redux/api/auth";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { motion } from "framer-motion";
 
 export default function SigninPage() {
+  const userData = useUserQuery({})
   const router = useRouter()
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm()
   const [signin, { isLoading }] = useSigninMutation()
   const { isAuth } = useAppSelector(state => state.auth)
+  console.log(isAuth)
 
   useEffect(() => {
     if (isAuth) {
@@ -32,7 +34,7 @@ export default function SigninPage() {
     }
   }
 
-  if (isAuth) {
+  if (isAuth || userData.isLoading) {
     return <Loading />
   }
 

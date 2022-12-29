@@ -5,9 +5,13 @@ import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { ChatItem } from "../ChatItem/ChatItem"
 import { chatActions } from "@/redux/slices/chat.slice"
 import { IChat, IUser } from "@/types"
-import { memo, useEffect } from "react"
+import { memo } from "react"
+import { useChatsQuery } from "@/redux/api/chat"
+
 
 export const Chats = memo(() => {
+  const { data, isLoading } = useChatsQuery({})
+
   const activeChat = useAppSelector(state => state.chat.activeChat)
   const dispatch = useAppDispatch()
 
@@ -15,13 +19,13 @@ export const Chats = memo(() => {
     dispatch(chatActions.submitMessage({}))
   }
 
-  // if (isLoading && !chats) {
-  //   return (
-  //     <Center h='100%'>
-  //       <Spinner />
-  //     </Center>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <Center h='100%'>
+        <Spinner />
+      </Center>
+    )
+  }
 
   // if (!chats && !isLoading) {
     return (

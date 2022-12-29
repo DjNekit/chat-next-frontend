@@ -2,19 +2,12 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { ChatWindow, SidePanel } from "@/components";
-import { useUserQuery } from "@/redux/api/auth";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { chatActions } from "@/redux/slices/chat.slice";
-import { useAppSelector } from "@/hooks/useAppSelector";
 
 const AuthGuard = dynamic(() => 
   import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)
 )
 
 export default function ChatsPage() {
-  const { data } = useUserQuery({})
-
   return (
     <AuthGuard>
       <Head>

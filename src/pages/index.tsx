@@ -1,13 +1,14 @@
 import { Button, useColorMode } from '@chakra-ui/react'
 import Head from 'next/head'
-import { api } from '@/api'
 import { Link } from '@/components/Link'
 // import { useUser } from '@/hooks/useUser'
 import { Loading } from '@/components'
+import { useAppSelector } from '@/hooks/useAppSelector'
 
 export default function Home() {
   // const { user, isLoading, mutate } = useUser({ disableRedirect: true })
   const { toggleColorMode } = useColorMode()
+  const { isAuth } = useAppSelector(state => state.auth)
 
   // if (isLoading) {
   //   return <Loading />
@@ -29,7 +30,7 @@ export default function Home() {
         <h1>Home Page</h1>
         <h2>NODE_ENV: {process.env.NODE_ENV}</h2>
         <div>
-          {true ?
+          {isAuth ?
             <>
               <Link href='/chats'>Chats</Link>
               <Button onClick={logout}>Logout</Button>

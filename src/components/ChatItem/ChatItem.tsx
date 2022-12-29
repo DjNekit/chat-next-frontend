@@ -3,11 +3,12 @@ import { Avatar, Flex, Text } from "@chakra-ui/react"
 
 interface ChatItemProps {
   name: string
+  email: string
   isActive?: boolean
   onClick: () => void
 }
 
-export const ChatItem: FC<ChatItemProps> = ({ name, isActive, onClick }) => {
+export const ChatItem: FC<ChatItemProps> = ({ name, email, isActive, onClick }) => {
   return (
     <Flex
       gap={2}
@@ -29,7 +30,7 @@ export const ChatItem: FC<ChatItemProps> = ({ name, isActive, onClick }) => {
       }}
     >
       <Avatar name={name} />
-      <Text fontWeight='bold'>{name}</Text>
+      <Text fontWeight='bold'>{name} / {email}</Text>
     </Flex>
   )
 }
