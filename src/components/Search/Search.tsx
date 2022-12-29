@@ -1,5 +1,6 @@
 import { CloseIcon, SearchIcon } from "@chakra-ui/icons"
 import { Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import { FC, memo } from "react"
 
 interface SearchProps {
@@ -21,6 +22,9 @@ export const Search: FC<SearchProps> = memo(({ value, onChange }) => {
       />
       {value &&
         <InputRightElement
+          as={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           onClick={() => onChange('')}
           cursor='pointer' 
           children={<CloseIcon color='gray.300' />} 
