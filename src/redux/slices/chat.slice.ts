@@ -47,7 +47,7 @@ export const chatSlice = createSlice({
   extraReducers: builder => {
     builder
       .addMatcher(chatApi.endpoints.chats.matchFulfilled, (state, action) => {
-        state.chats = action.payload.chats
+        state.chats = action.payload
       })
   }
 })

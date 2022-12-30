@@ -47,13 +47,11 @@ export const authSlice = createSlice({
     builder
       .addMatcher(authApi.endpoints.user.matchFulfilled, (state, { payload }) => {
         state.user = payload
-        state.isAuth = true
       })
 
     builder
       .addMatcher(authApi.endpoints.signout.matchFulfilled, (state, { payload }) => {
-        state.user = payload
-        state.isAuth = false
+        return { ...initialState, isFirstLoading: false}
       })
 
     builder

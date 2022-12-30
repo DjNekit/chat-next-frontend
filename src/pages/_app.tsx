@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import theme from '@/theme'
-import { wrapper } from '@/redux/store'
+import { store } from '@/redux/store'
 
 import '@fontsource/open-sans/700.css'
 import '@fontsource/raleway/400.css'
@@ -20,16 +20,15 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({
   Component,
-  ...rest
+  pageProps
 }: AppPropsWithLayout) {
   const defaultPage = (page: ReactElement) => page
   const getLayout = Component.getLayout ?? defaultPage;
-  const { store, props } = wrapper.useWrappedStore(rest)
 
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        {getLayout(<Component {...props} />)}
+        {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
     </Provider>
   )

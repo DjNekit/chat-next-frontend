@@ -35,7 +35,6 @@ export const authFetch: BaseQueryFn<
         const accessToken = (refreshResult.data as any).accessToken
 
         if (accessToken) {
-          console.log(accessToken)
           api.dispatch(setToken(accessToken))
           result = await baseQuery(args, api, extraOptions)
         } else {
@@ -58,6 +57,7 @@ export const authFetch: BaseQueryFn<
 export const api = createApi({
   reducerPath: 'splitApi',
   baseQuery: authFetch,
-  endpoints: () => ({})
+  endpoints: () => ({}),
+  refetchOnMountOrArgChange: true
 })
 

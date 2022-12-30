@@ -14,7 +14,7 @@ export default function SigninPage() {
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm()
   const [signin, { isLoading }] = useSigninMutation()
   const { isAuth } = useAppSelector(state => state.auth)
-  console.log(isAuth)
+  console.log('signin')
 
   useEffect(() => {
     if (isAuth) {

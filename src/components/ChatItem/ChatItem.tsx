@@ -3,7 +3,7 @@ import { Avatar, Flex, Text } from "@chakra-ui/react"
 
 interface ChatItemProps {
   name: string
-  email: string
+  email?: string
   isActive?: boolean
   onClick: () => void
 }

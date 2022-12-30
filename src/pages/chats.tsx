@@ -8,6 +8,8 @@ const AuthGuard = dynamic(() =>
 )
 
 export default function ChatsPage() {
+  console.log('chats')
+
   return (
     <AuthGuard>
       <Head>

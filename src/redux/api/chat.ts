@@ -11,6 +11,11 @@ export const chatApi = api.injectEndpoints({
       query: () => ({
         url: '/api/chat/getChats'
       })
+    }),
+    chatById: build.mutation({
+      query: (id) => ({
+        url: `/api/chat/getChats?companionId=${id}`
+      })
     })
   })
 })
@@ -18,5 +23,6 @@ export const chatApi = api.injectEndpoints({
 
 export const {
   useSearchMutation,
-  useChatsQuery
+  useChatsQuery,
+  useChatByIdMutation
 } = chatApi
