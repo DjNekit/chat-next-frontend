@@ -13,7 +13,7 @@ export const layerStyles = {
     main: {
       bg: 'white',
       _dark: {
-        bg: 'blackAlpha.400',
+        bg: 'blackAlpha.700',
       }
     }
   },

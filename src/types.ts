@@ -15,6 +15,7 @@ export interface IMessage {
 export interface IChat {
   id: number
   author_id?: number
+  name?: null | string
   isPrivate: boolean
   members: IUser[]
   messages: IMessage[]

@@ -7,20 +7,26 @@ import { IUser } from "@/types"
 import { ChatItem } from "../ChatItem/ChatItem"
 import { useAppSelector } from "@/hooks/useAppSelector"
 import { useChatByIdMutation } from "@/redux/api/chat"
+import { Loading } from "../Loading/Loading"
 // import { useUser } from "@/hooks/useUser"
 
 interface SearchResultsProps {
+  isLoading: boolean
   results: {
     users: IUser[]
   }
 }
 
-export const SearchResults: FC<SearchResultsProps> = memo(({ results }) => {
+export const SearchResults: FC<SearchResultsProps> = memo(({ results, isLoading }) => {
   const [getChat] = useChatByIdMutation()
   const dispatch = useAppDispatch()
   
   const onSearchItemClick = (user: IUser) => {
     getChat(user.id)
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (

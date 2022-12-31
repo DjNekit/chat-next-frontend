@@ -19,13 +19,15 @@ export default function ChatsPage() {
       </Head>
 
       <Grid
+        overflow='hidden'
+        pos='relative'
         templateColumns={{
           lg: '1fr 2fr',
-          sm: '1fr 1fr',
+          sm: '2fr 3fr',
           base: '1fr'
         }}
       >
-        <GridItem>
+        <GridItem >
           <SidePanel />
         </GridItem>
         <GridItem

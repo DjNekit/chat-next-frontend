@@ -18,7 +18,7 @@ const variants = {
 
 export const SidePanel = memo(() => {  
   const [searchValue, setSearchValue] = useState('')
-  const [search, { data: searchUsers }] = useSearchMutation()
+  const [search, { data: searchUsers, isLoading }] = useSearchMutation()
   // const border = useColorModeValue('blackAlpha.400', 'whiteAlpha.300')
 
   const needShowResults = (searchValue: string) => {
@@ -56,7 +56,7 @@ export const SidePanel = memo(() => {
           overflow='auto'
         >
           {showData
-            ? <SearchResults results={searchUsers}/>
+            ? <SearchResults results={searchUsers} isLoading={isLoading}/>
             : <Chats />
           }
         </Box>

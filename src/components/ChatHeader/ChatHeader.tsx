@@ -1,16 +1,17 @@
 import { FC, memo } from "react";
-import { Avatar, Flex } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { useIsMobile } from "@/hooks/useMobile";
 import { chatActions } from "@/redux/slices/chat.slice";
 
-interface ChatHeaderProps {}
+interface ChatHeaderProps {
+  name?: string
+}
 
-export const ChatHeader: FC<ChatHeaderProps> = memo(() => {
+export const ChatHeader: FC<ChatHeaderProps> = memo(({ name = '' }) => {
   const dispatch = useAppDispatch()
-  const activeChat = useAppSelector(state => state.chat.activeChat)
   const isMobile = useIsMobile()
 
   const backClick = () => {
@@ -21,19 +22,20 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(() => {
     <Flex
       alignItems='center'
       gap={3}
-      px={3}
+      px={4}
       py={2}
       layerStyle={['bg.main']}
       boxShadow='lg'
     >
-      {/* {isMobile &&  */}
+      {isMobile && 
         <ArrowBackIcon 
           boxSize={6}
           cursor='pointer'
           onClick={backClick}
         />
-      {/* } */}
-      <Avatar size={isMobile ? 'sm' : 'md'}/>
+}
+      <Avatar size={isMobile ? 'sm' : 'md'} name={name}/>
+      <Text>{name}</Text>
     </Flex>
   )
 })
