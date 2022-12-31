@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Input, LightMode, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link, Loading, SigninLayout } from "@/components";
 import { useSigninMutation, useUserQuery } from "@/redux/api/auth";
@@ -38,7 +38,7 @@ export default function SigninPage() {
   }
 
   return (
-    <>
+    <LightMode>
       <Head>
         <title>Sign In</title>
       </Head>
@@ -65,10 +65,11 @@ export default function SigninPage() {
                 {...register('password', { required: true })}
                 placeholder='Password'
                 size='lg'
-                isInvalid={!!errors.submit || !!errors.password}
-                type='password'
-                onChange={clearSubmitError}
                 color='white'
+                isInvalid={!!errors.submit || !!errors.password}
+                onChange={clearSubmitError}
+                type='password'
+                autoComplete="true"
               />
               {errors.submit &&
                 <Text 
@@ -87,6 +88,6 @@ export default function SigninPage() {
           </Stack>
         </form>
       </SigninLayout>
-    </>
+    </LightMode>
   )
 }

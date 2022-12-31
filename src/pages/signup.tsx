@@ -1,7 +1,7 @@
 import Head from "next/head";
 import router from "next/router";
 import { useEffect } from "react";
-import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
+import { Button, Input, Text, Stack, Box, LightMode } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link } from "@/components";
 import { Loading, SigninLayout } from "@/components";
@@ -36,7 +36,7 @@ export default function SignupPage() {
   }
 
   return (
-    <>
+    <LightMode>
       <Head>
         <title>Sign Up</title>
       </Head>
@@ -74,6 +74,7 @@ export default function SignupPage() {
               isInvalid={!!errors.submit || !!errors.password}
               onChange={clearSubmitError}
               color='white'
+              autoComplete="true"
             />
             <Button type='submit'>Sign up</Button>
             <Text textAlign='center' color='white'>
@@ -82,7 +83,7 @@ export default function SignupPage() {
           </Stack>
         </Box>
       </SigninLayout>
-    </>
+    </LightMode>
   )
 }
 

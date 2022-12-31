@@ -25,8 +25,6 @@ export function redirectHandler(url: string) {
         data: body,
       })
 
-      console.log(data)
-
       //? Подставляю оригинальные хэдеры с куками в прокси ответ
       Object.entries(returnedHeaders).forEach(([headerKey, value]) => {
         res.setHeader(headerKey, value as string)
@@ -34,7 +32,6 @@ export function redirectHandler(url: string) {
   
       res.status(status).json(data)
     } catch (error: any) {
-      // console.log(error)
       const axiosError = error as AxiosError
   
       res
