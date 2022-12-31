@@ -2,13 +2,16 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { ChatWindow, SidePanel } from "@/components";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { AnimatePresence, motion } from "framer-motion";
 
-const AuthGuard = dynamic(() => 
+const AuthGuard = dynamic(() =>
   import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)
 )
 
 export default function ChatsPage() {
   console.log('chats')
+  const activeChat = useAppSelector(state => state.chat.activeChat)
 
   return (
     <AuthGuard>
@@ -16,11 +19,32 @@ export default function ChatsPage() {
         <title>Chats</title>
       </Head>
 
-      <Grid templateColumns='1fr 2fr'>
+      <Grid
+        templateColumns={{
+          lg: '1fr 2fr',
+          sm: '1fr 1fr',
+          base: '1fr'
+        }}
+      >
         <GridItem>
           <SidePanel />
         </GridItem>
-        <GridItem>
+        <GridItem
+          pos={{
+            base: 'absolute',
+            sm: 'static'
+          }}
+          left={activeChat ? 0 : '100%'}
+          transition='left .3s ease-out'
+          w={{
+            base: '100vw',
+            sm: 'auto'
+          }}
+          h={{
+            base: '100vh',
+            sm: 'auto'
+          }}
+        >
           <ChatWindow />
         </GridItem>
       </Grid>

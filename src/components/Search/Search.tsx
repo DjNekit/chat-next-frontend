@@ -10,9 +10,10 @@ interface SearchProps {
 
 export const Search: FC<SearchProps> = memo(({ value, onChange }) => {
   return (
-    <InputGroup>
+    <InputGroup zIndex={0}>
       <InputLeftElement
         pointerEvents='none'
+        zIndex={0}
         children={<SearchIcon color='gray.300' />}
       />
       <Input

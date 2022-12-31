@@ -3,11 +3,10 @@ import { IChat, IUser } from "@/types";
 import { chatApi } from "../api/chat";
 
 interface IChatState {
-  activeChat: any
+  activeChat: IChat | null
   isEstablishingConnection: boolean
   isConnect: boolean,
   error: ''
-
   chats: any[]
 }
 
@@ -40,7 +39,7 @@ export const chatSlice = createSlice({
     submitMessage: (state, action) => {
       return;
     },
-    setChat: (state, action: PayloadAction<IChat>) => {
+    setChat: (state, action: PayloadAction<IChat | null>) => {
       state.activeChat = action.payload
     },
   },

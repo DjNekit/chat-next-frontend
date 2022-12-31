@@ -6,16 +6,17 @@ export interface IUser {
 
 export interface IMessage {
   id: number
-  creatorId: number
-  text: string
-  createDate: Date
+  author_id: number
+  content: string
+  created_date: Date
+  status: 'unread' | 'read' | 'delete'
 }
 
 export interface IChat {
-  id?: number
-  creatorId?: number
-  lastMessage?: string
+  id: number
+  author_id?: number
+  isPrivate: boolean
   members: IUser[]
-  isGroup: boolean
   messages: IMessage[]
+  lastMessage?: string
 }

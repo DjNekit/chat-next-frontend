@@ -6,9 +6,9 @@ import { wsMiddleware } from "./middleware/ws.middleware";
 
 export const store = configureStore({
   reducer: {
-    [api.reducerPath]: api.reducer,
     auth: authReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware, wsMiddleware),

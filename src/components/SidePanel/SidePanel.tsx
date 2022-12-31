@@ -1,6 +1,6 @@
 
-import { memo, useCallback, useEffect, useMemo, useState } from "react"
-import { Box, Flex, useBoolean } from "@chakra-ui/react"
+import { memo, useCallback, useState } from "react"
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react"
 import { Search, Menu, SearchResults, Chats } from "@/components"
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSearchMutation } from "@/redux/api/chat"
@@ -19,6 +19,7 @@ const variants = {
 export const SidePanel = memo(() => {  
   const [searchValue, setSearchValue] = useState('')
   const [search, { data: searchUsers }] = useSearchMutation()
+  // const border = useColorModeValue('blackAlpha.400', 'whiteAlpha.300')
 
   const needShowResults = (searchValue: string) => {
     return searchValue.length > 2 ? true : false
@@ -37,10 +38,7 @@ export const SidePanel = memo(() => {
     <Flex
       flexDirection='column'
       h='100vh'
-      borderRightColor='blackAlpha.400'
-      borderRightWidth={1}
-      borderRightStyle='solid'
-      p='0.4rem 0.8rem'
+      layerStyle={['bg.main', 'border.right', 'padded.2-3']}
     >
       <Flex alignItems='center' gap={2}>
         <Menu />
@@ -55,6 +53,7 @@ export const SidePanel = memo(() => {
           animate='show'
           exit='hidden'
           h='inherit'
+          overflow='auto'
         >
           {showData
             ? <SearchResults results={searchUsers}/>
