@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { Link } from '../Link'
+import { Link } from '@/components'
 import s from './style.module.scss' 
 
 export const AnimatedLogo = () => {

@@ -10,7 +10,6 @@ const AuthGuard = dynamic(() =>
 )
 
 export default function ChatsPage() {
-  console.log('chats')
   const activeChat = useAppSelector(state => state.chat.activeChat)
 
   return (

@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { api } from "@/lib/api";
 
 export const authApi = api.injectEndpoints({

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Input, LightMode, Stack, Text } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link, Loading, SigninLayout } from "@/components";
 import { useSigninMutation, useUserQuery } from "@/redux/api/auth";
@@ -14,7 +14,6 @@ export default function SigninPage() {
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm()
   const [signin, { isLoading }] = useSigninMutation()
   const { isAuth } = useAppSelector(state => state.auth)
-  console.log('signin')
 
   useEffect(() => {
     if (isAuth) {
@@ -39,28 +38,38 @@ export default function SigninPage() {
   }
 
   return (
-    <>
+    <LightMode>
       <Head>
         <title>Sign In</title>
       </Head>
       <SigninLayout>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={5}>
-            <h1>Sign In page</h1>
+            <Text 
+              color='white' 
+              fontSize='4xl'
+              textAlign='center'
+            >
+              Signin
+            </Text>
             <Input
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
               isInvalid={!!errors.submit || !!errors.email}
               onChange={clearSubmitError}
+              color='white'
             />
             <Box>
               <Input
                 {...register('password', { required: true })}
                 placeholder='Password'
                 size='lg'
+                color='white'
                 isInvalid={!!errors.submit || !!errors.password}
                 onChange={clearSubmitError}
+                type='password'
+                autoComplete="true"
               />
               {errors.submit &&
                 <Text 
@@ -73,12 +82,12 @@ export default function SigninPage() {
               }
             </Box>
             <Button type="submit" isLoading={isLoading}>Sign in</Button>
-            <Text textAlign='center'>
-              Don't have account? <Link href='/signup'>Sign Up!</Link>
+            <Text textAlign='center' color='white'>
+              Don't have account? <Link href='/signup' lighter>Sign Up!</Link>
             </Text>
           </Stack>
         </form>
       </SigninLayout>
-    </>
+    </LightMode>
   )
 }

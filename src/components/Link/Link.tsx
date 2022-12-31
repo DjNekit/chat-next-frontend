@@ -3,14 +3,16 @@ import NextLink from 'next/link';
 import { FC, ReactNode } from 'react';
 
 interface LinkProps extends Omit<ChakraLinkProps, 'as'> {
+  lighter?: boolean
   children: ReactNode
 }
 
-export const Link: FC<LinkProps> = ({ children, ...restProps }) => {
+export const Link: FC<LinkProps> = ({ lighter, children, ...restProps }) => {
+
   return (
     <ChakraLink 
       as={NextLink} 
-      color='blue.500' 
+      color={lighter ? 'blue.400' : 'blue.500' }
       _hover={{
         color: 'blue.400'
       }}

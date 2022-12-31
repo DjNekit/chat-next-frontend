@@ -9,9 +9,9 @@ export function redirectHandler(url: string) {
     res: NextApiResponse
   ) {
     try {
-      const { body, query, headers, method } = req;
-      const axiosMethod = method!.toLowerCase() as Methods
-
+      const { body, query, headers: { host, ...rest }, method } = req;
+      const axiosMethod = method!.toUpperCase() as Methods
+      
       const queryString = Object.entries(query)
         .reduce((result, [key, value]) => {
           const divider = result === '' ? '?' : '&'
@@ -21,7 +21,7 @@ export function redirectHandler(url: string) {
       const { data, headers: returnedHeaders, status } = await axios({
         url: `${process.env.API}${url}${queryString}`,
         method: axiosMethod,
-        headers,
+        headers: rest,
         data: body,
       })
 

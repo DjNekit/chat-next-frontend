@@ -1,4 +1,4 @@
-import { Box, Center, SimpleGrid } from "@chakra-ui/react"
+import { Box, Center, Flex, Grid, GridItem, SimpleGrid, position } from "@chakra-ui/react"
 import Image from "next/image"
 import { FC, ReactNode } from "react"
 import { AnimatedLogo } from "./AnimatedLogo"
@@ -9,31 +9,26 @@ interface SigninLayoutProps {
 
 export const SigninLayout: FC<SigninLayoutProps> = ({ children }) => {
   return (
-    <SimpleGrid 
-      columns={{
-        sm: 1,
-        md: 2
-      }} 
+    <Flex 
       h='100vh' 
+      flexDirection={{
+        md: 'row',
+        base: 'column'
+      }} 
+      justifyContent='space-around' 
     >
-      <Box pos='relative'>
-        <Image 
-          src='/planet.jpeg' 
-          alt="Background picture"
-          fill
-          style={{ objectFit: 'cover' }}
-        />
-        <AnimatedLogo />
-      </Box>
-      <Center 
-        borderTopRightRadius='5%' 
-        borderTopLeftRadius={{
-          base: '5%',
-          md: '0%',
+      <Image
+        src='/planet.jpeg'
+        alt="Background picture"
+        fill
+        style={{
+          objectFit: 'cover',
         }}
-      >
+      />
+      <AnimatedLogo />
+      <Center pos='relative'>
         {children}
       </Center>
-    </SimpleGrid>
+    </Flex>
   )
 }
