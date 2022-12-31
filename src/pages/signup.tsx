@@ -5,7 +5,6 @@ import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Link } from "@/components/Link";
 import { Loading, SigninLayout } from "@/components";
-import { api } from "@/api";
 import { useSignupMutation } from "@/redux/api/auth";
 import { useAppSelector } from "@/hooks/useAppSelector";
 

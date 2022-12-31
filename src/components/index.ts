@@ -3,6 +3,7 @@ export { Link } from './Link';
 export { Loading } from './Loading/Loading'
 export { SidePanel } from './SidePanel/SidePanel'
 export { ChatWindow } from './ChatWindow/ChatWindow'
+export { ChatHeader } from './ChatHeader/ChatHeader'
 export { Search } from './Search/Search'
 export { Menu } from './Menu/Menu'
 export { SearchResults } from './SearchResults/SearchResults'

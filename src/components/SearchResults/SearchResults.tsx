@@ -1,10 +1,12 @@
-import { FC } from "react"
+import { FC, memo } from "react"
 import { Flex, Text } from "@chakra-ui/react"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 
 import { chatActions } from '@/redux/slices/chat.slice'
 import { IUser } from "@/types"
 import { ChatItem } from "../ChatItem/ChatItem"
+import { useAppSelector } from "@/hooks/useAppSelector"
+import { useChatByIdMutation } from "@/redux/api/chat"
 // import { useUser } from "@/hooks/useUser"
 
 interface SearchResultsProps {
@@ -13,16 +15,12 @@ interface SearchResultsProps {
   }
 }
 
-export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
-  // const { user: currentUser } = useUser()
+export const SearchResults: FC<SearchResultsProps> = memo(({ results }) => {
+  const [getChat] = useChatByIdMutation()
   const dispatch = useAppDispatch()
-
+  
   const onSearchItemClick = (user: IUser) => {
-    // dispatch(chatActions.setChat({
-    //   isGroup: false,
-    //   members: [currentUser, user],
-    //   messages: []
-    // }))
+    getChat(user.id)
   }
 
   return (
@@ -39,9 +37,10 @@ export const SearchResults: FC<SearchResultsProps> = ({ results }) => {
         <ChatItem 
           key={user.id}
           name={user.name}
+          email={user.email}
           onClick={() => onSearchItemClick(user)}
         />
       )}
     </Flex>
   )
-}
+})

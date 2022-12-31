@@ -1,9 +1,9 @@
 
-import { memo, useCallback, useMemo, useState } from "react"
-import { Box, Flex } from "@chakra-ui/react"
+import { memo, useCallback, useState } from "react"
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react"
 import { Search, Menu, SearchResults, Chats } from "@/components"
-import { useSearch } from "@/hooks/useSearch"
 import { AnimatePresence, motion } from 'framer-motion'
+import { useSearchMutation } from "@/redux/api/chat"
 
 const variants = {
   show: {
@@ -16,11 +16,21 @@ const variants = {
   }
 }
 
-export const SidePanel = memo(() => {
+export const SidePanel = memo(() => {  
   const [searchValue, setSearchValue] = useState('')
-  const { data, showData } = useSearch(searchValue)
+  const [search, { data: searchUsers }] = useSearchMutation()
+  // const border = useColorModeValue('blackAlpha.400', 'whiteAlpha.300')
+
+  const needShowResults = (searchValue: string) => {
+    return searchValue.length > 2 ? true : false
+  }
+
+  const showData = needShowResults(searchValue)
 
   const onSeachChange = useCallback(async (value: string) => {
+    if (needShowResults(value)) {
+      search(value)
+    }
     setSearchValue(value)
   }, [])
 
@@ -28,10 +38,7 @@ export const SidePanel = memo(() => {
     <Flex
       flexDirection='column'
       h='100vh'
-      borderRightColor='blackAlpha.400'
-      borderRightWidth={1}
-      borderRightStyle='solid'
-      p='0.4rem 0.8rem'
+      layerStyle={['bg.main', 'border.right', 'padded.2-3']}
     >
       <Flex alignItems='center' gap={2}>
         <Menu />
@@ -41,13 +48,15 @@ export const SidePanel = memo(() => {
         <Box 
           as={motion.div}
           key={showData ? 'searchResults' : 'contacts'}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          variants={variants}
+          initial='hidden'
+          animate='show'
+          exit='hidden'
           h='inherit'
+          overflow='auto'
         >
           {showData
-            ? <SearchResults results={data}/>
+            ? <SearchResults results={searchUsers}/>
             : <Chats />
           }
         </Box>
