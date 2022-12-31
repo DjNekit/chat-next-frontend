@@ -27,7 +27,7 @@ export default function ChatsPage() {
           base: '1fr'
         }}
       >
-        <GridItem >
+        <GridItem>
           <SidePanel />
         </GridItem>
         <GridItem

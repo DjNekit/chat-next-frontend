@@ -28,7 +28,8 @@ export const ChatWindow: FC<ChatProps> = () => {
       bgGradient='linear(to-br, yellow.300, green.200, yellow.300)'
       overflow='hidden'
       _dark={{
-        bgGradient: 'linear(to-br, black)'
+        bgGradient: 'none',
+        bg: 'gray.900'
       }}
     >
       <Box
