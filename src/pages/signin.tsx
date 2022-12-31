@@ -14,7 +14,6 @@ export default function SigninPage() {
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm()
   const [signin, { isLoading }] = useSigninMutation()
   const { isAuth } = useAppSelector(state => state.auth)
-  console.log('signin')
 
   useEffect(() => {
     if (isAuth) {
@@ -46,13 +45,20 @@ export default function SigninPage() {
       <SigninLayout>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={5}>
-            <h1>Sign In page</h1>
+            <Text 
+              color='white' 
+              fontSize='4xl'
+              textAlign='center'
+            >
+              Signin
+            </Text>
             <Input
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
               isInvalid={!!errors.submit || !!errors.email}
               onChange={clearSubmitError}
+              color='white'
             />
             <Box>
               <Input
@@ -60,7 +66,9 @@ export default function SigninPage() {
                 placeholder='Password'
                 size='lg'
                 isInvalid={!!errors.submit || !!errors.password}
+                type='password'
                 onChange={clearSubmitError}
+                color='white'
               />
               {errors.submit &&
                 <Text 
@@ -73,8 +81,8 @@ export default function SigninPage() {
               }
             </Box>
             <Button type="submit" isLoading={isLoading}>Sign in</Button>
-            <Text textAlign='center'>
-              Don't have account? <Link href='/signup'>Sign Up!</Link>
+            <Text textAlign='center' color='white'>
+              Don't have account? <Link href='/signup' lighter>Sign Up!</Link>
             </Text>
           </Stack>
         </form>

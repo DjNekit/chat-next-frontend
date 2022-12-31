@@ -3,7 +3,7 @@ import router from "next/router";
 import { useEffect } from "react";
 import { Button, Input, Text, Stack, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Link } from "@/components/Link";
+import { Link } from "@/components";
 import { Loading, SigninLayout } from "@/components";
 import { useSignupMutation } from "@/redux/api/auth";
 import { useAppSelector } from "@/hooks/useAppSelector";
@@ -47,31 +47,37 @@ export default function SignupPage() {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Stack spacing={3}>
-            <h1>Hello!</h1>
+            <Text fontSize='4xl' color='white' textAlign='center'>
+              Signup
+            </Text>
             <Input
               {...register('name', { required: true })}
               placeholder='Enter username'
               size='lg'
-              isInvalid={!!errors.name}
+              isInvalid={!!errors.submit || !!errors.name}
               onChange={clearSubmitError}
+              color='white'
             />
             <Input
               {...register('email', { required: true })}
               placeholder='Email'
               size='lg'
-              isInvalid={!!errors.email}
+              isInvalid={!!errors.submit || !!errors.email}
               onChange={clearSubmitError}
+              color='white'
             />
             <Input
               {...register('password', { required: true })}
               placeholder='Password'
               size='lg'
-              isInvalid={!!errors.password}
+              type='password'
+              isInvalid={!!errors.submit || !!errors.password}
               onChange={clearSubmitError}
+              color='white'
             />
             <Button type='submit'>Sign up</Button>
-            <Text textAlign='center'>
-              Already have account? <Link href='/signin'>Sign In!</Link>
+            <Text textAlign='center' color='white'>
+              Already have account? <Link href='/signin' lighter>Sign In!</Link>
             </Text>
           </Stack>
         </Box>

@@ -1,5 +1,5 @@
 export { SigninLayout } from "./SigninLayout/SigninLayout";
-export { Link } from './Link';
+export { Link } from './Link/Link';
 export { Loading } from './Loading/Loading'
 export { SidePanel } from './SidePanel/SidePanel'
 export { ChatWindow } from './ChatWindow/ChatWindow'
