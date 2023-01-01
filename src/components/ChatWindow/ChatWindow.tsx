@@ -1,12 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react"
-import { Box, Center, Fade, Grid, GridItem, Slide } from "@chakra-ui/react"
+import { Box, Center, Fade, Grid, GridItem, Slide, useColorMode } from "@chakra-ui/react"
 import { useAppSelector } from "@/hooks/useAppSelector"
 import { ChatHeader, Messages } from "@/components"
 import bg from '@/assets/images/chat-bg.png'
+import bgDark from '@/assets/images/chat-bg-dark.png'
 
 interface ChatProps { }
 
 export const ChatWindow: FC<ChatProps> = () => {
+  const { colorMode } = useColorMode()
+  
   const { activeChat } = useAppSelector(state => state.chat)
   const ref = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState<any>('auto')
@@ -33,7 +36,7 @@ export const ChatWindow: FC<ChatProps> = () => {
       }}
     >
       <Box
-        bgImg={`url(${bg.src})`}
+        bgImg={`url(${colorMode === 'light' ? bg.src : bgDark.src})`}
         h='100vh'
       >
         <Grid
