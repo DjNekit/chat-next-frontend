@@ -41,14 +41,20 @@ export const Chats = memo(() => {
       flexDirection='column' 
     >
       {chats.map((chat: IChat) => {
-        const adressee = chat.members
-          .find((member: IUser) => member.id !== chat.author_id)!
+        const isPrivate = chat.isPrivate
+        const name = isPrivate 
+          ? chat.members[0].name 
+          : ''
+
+        const email = isPrivate 
+          ? chat.members[0].email 
+          : undefined
 
         return (
           <ChatItem
             key={chat.id}
-            name={adressee.name}
-            email={adressee.email}
+            name={name}
+            email={email}
             isActive={activeChat?.id === chat.id}
             onClick={() => dispatch(chatActions.setChat(chat))}
           />
