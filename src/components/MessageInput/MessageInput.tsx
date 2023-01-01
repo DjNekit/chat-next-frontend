@@ -1,20 +1,24 @@
-import { FC, memo, useRef, useState } from "react"
+import { FC, memo, useRef } from "react"
 import { Box, Flex, Grid, GridItem, IconButton, Input, ScaleFade, useColorMode, useDisclosure, useOutsideClick } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
-import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { SmileIcon } from "../Icons/SmileIcon";
 
 interface MessageInputProps { }
 
 export const MessageInput: FC<MessageInputProps> = memo(() => {
-  const [messageText, setMessageText] = useState('')
-  const { isOpen, onToggle, onClose, onOpen } = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure()
   const { colorMode } = useColorMode()
-  const ref = useRef<any>()
+  const messRef = useRef<any>(null)
+  const ref = useRef<any>(null)
   useOutsideClick({
     ref: ref,
     handler: onClose,
   })
+
+  const onEmojiClick = ({ emoji }: EmojiClickData) => {
+    messRef.current.innerText += emoji
+  }
 
   return (
     <Grid
@@ -25,7 +29,6 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
       width={{
         lg: '80%'
       }}
-
     >
       <GridItem></GridItem>
       <GridItem as={Flex} gap={2} alignItems='flex-end'>
@@ -49,16 +52,19 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
             left='-3px'
           >
             <EmojiPicker
-              height='80vh'
+              height='50vh'
               theme={colorMode as any}
-              onEmojiClick={(emoji) => setMessageText(emoji.emoji)}
+              onEmojiClick={onEmojiClick}
+              previewConfig={{
+                showPreview: false
+              }}
               searchDisabled
             />
           </Box>
           <SmileIcon onClick={!isOpen ? onOpen : undefined} />
           <Box
+            ref={messRef}
             w='100%'
-            defaultValue={messageText}
             contentEditable
             wordBreak='break-all'
             outline='none'
