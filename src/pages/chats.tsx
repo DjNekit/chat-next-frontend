@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { ChatWindow, SidePanel } from "@/components";
 import { useAppSelector } from "@/hooks/useAppSelector";
-import { AnimatePresence, motion } from "framer-motion";
 
 const AuthGuard = dynamic(() =>
   import('@/hoc/AuthGuard').then(mod => mod.AuthGuard)

@@ -12,7 +12,6 @@ interface MessagesProps {
 }
 
 export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
-  console.log(height)
   const ref = useRef<HTMLDivElement>(null)
   const { user } = useAppSelector(state => state.auth)
 
@@ -27,7 +26,6 @@ export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
       ref={ref}
       p={4}
       height={height}
-      border='1px solid black'
       overflow='auto'
     >
       <Flex 
@@ -35,7 +33,6 @@ export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
           lg: '80%',
         }} 
         m='0 auto'
-        // height='100%'
         flexDirection='column'
         justifyContent='end'
         gap={2}

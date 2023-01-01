@@ -1,4 +1,4 @@
-import { Icon, createIcon } from "@chakra-ui/icons";
+import { Icon } from "@chakra-ui/icons";
 import { useColorMode } from "@chakra-ui/react";
 
 export const ExitIcon = () => {

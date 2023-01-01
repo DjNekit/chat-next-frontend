@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react"
-import { Box, Center, Fade, Grid, GridItem, Slide, useColorMode } from "@chakra-ui/react"
+import { Box, Fade, Grid, GridItem, Slide, useColorMode } from "@chakra-ui/react"
 import { useAppSelector } from "@/hooks/useAppSelector"
-import { ChatHeader, Messages } from "@/components"
+import { ChatHeader, MessageInput, Messages } from "@/components"
 import bg from '@/assets/images/chat-bg.png'
 import bgDark from '@/assets/images/chat-bg-dark.png'
 
@@ -67,9 +67,7 @@ export const ChatWindow: FC<ChatProps> = () => {
               direction='bottom'
               style={{ position: 'relative' }}
             >
-              <Center>
-                Send
-              </Center>
+              <MessageInput />
             </Slide>
           </GridItem>
         </Grid>
