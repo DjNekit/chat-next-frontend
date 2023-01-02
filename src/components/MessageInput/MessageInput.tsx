@@ -27,6 +27,7 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
       maxW='685px'
       margin='0 auto'
       gap={3}
+      px={5}
     >
       <Flex
         layerStyle='bg.main'
@@ -46,7 +47,7 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
           pos='absolute'
           bottom='68px'
           left='-3px'
-          unmountOnExit
+          zIndex={isOpen ? '' : -1}
         >
           <EmojiPicker
             height='50vh'
