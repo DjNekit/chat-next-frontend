@@ -4,6 +4,7 @@ import { SearchIcon } from "@chakra-ui/icons"
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { SmileIcon } from "../Icons/SmileIcon";
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { SendIcon } from "../Icons/SendIcon";
 
 interface MessageInputProps { }
 
@@ -36,6 +37,7 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
     <Flex
       maxW='685px'
       margin='0 auto'
+      alignItems='flex-end'
       gap={3}
       px={5}
       pb={4}
@@ -52,7 +54,8 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
       >
         <Box
           ref={ref}
-          transition='all .3s ease-out'
+          transition='all .1s ease-out'
+          transformOrigin='left bottom'
           opacity={isOpen ? 1 : 0}
           visibility={isOpen ? 'visible' : 'hidden'}
           transform={`scale(${isOpen ? 1 : 0.7})`}
@@ -77,17 +80,31 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
           ref={messRef}
           w='100%'
           contentEditable
+          pos='relative'
+          top='-2px'
           wordBreak='break-all'
           outline='none'
         />
       </Flex>
       <IconButton
         borderRadius='full'
-        colorScheme='blue'
-        aria-label='Search database'
+        aria-label='Send message'
         size='lg'
         mb='2px'
-        icon={<SearchIcon />}
+        _hover={{
+          bg: 'telegram.400',
+          fill: 'white',
+        }}
+        _dark={{
+          bg: 'blackAlpha.700',
+        }}
+        icon={
+          <SendIcon
+            _dark={{
+              fill: 'white'
+            }}
+          />
+        }
       />
     </Flex>
   )

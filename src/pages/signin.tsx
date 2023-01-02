@@ -81,7 +81,13 @@ export default function SigninPage() {
                 </Text>
               }
             </Box>
-            <Button type="submit" isLoading={isLoading}>Sign in</Button>
+            <Button 
+              type="submit" 
+              isLoading={isLoading}
+              colorScheme='telegram'
+            >
+              Sign in
+            </Button>
             <Text textAlign='center' color='white'>
               Don't have account? <Link href='/signup' lighter>Sign Up!</Link>
             </Text>
