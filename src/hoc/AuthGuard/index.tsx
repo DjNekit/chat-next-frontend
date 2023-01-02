@@ -1,10 +1,10 @@
 import { FC, ReactNode, useEffect } from "react"
-import { useAppSelector } from "@/hooks/useAppSelector"
-import { Loading } from "@/components"
+import { useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
+import { Loading } from "@/components"
+import { useAppSelector } from "@/hooks/useAppSelector"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { chatActions } from "@/redux/slices/chat.slice"
-import { useToast } from "@chakra-ui/react"
 import { useUserQuery } from "@/redux/api/auth"
 
 interface AuthGuardProps {
@@ -38,9 +38,11 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
     }
   }, [isAuth, isFirstLoading, isConnect, error])
 
-  if (!isAuth) {
-    return <Loading />
-  }
   
-  return <>{children}</>
+  return (
+    <>
+      {!isAuth && <Loading />}
+      {children}
+    </>
+  )
 }

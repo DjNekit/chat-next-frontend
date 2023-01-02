@@ -1,8 +1,7 @@
-import { Icon } from "@chakra-ui/icons"
-import { IconProps } from "@chakra-ui/react"
+import { Icon, IconProps } from "@chakra-ui/icons"
 import { FC, memo } from "react"
 
-export const SmileIcon: FC<any> = memo((props) => {
+export const SmileIcon: FC<IconProps> = memo((props) => {
   return (
     <Icon
       height='28px' 

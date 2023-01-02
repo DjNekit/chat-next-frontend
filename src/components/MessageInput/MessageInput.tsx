@@ -1,20 +1,30 @@
 import { FC, memo, useRef } from "react"
-import { Box, Flex, IconButton, ScaleFade, useColorMode, useDisclosure, useOutsideClick } from "@chakra-ui/react"
+import { Box, Flex, IconButton, useColorMode, useDisclosure, useOutsideClick } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { SmileIcon } from "../Icons/SmileIcon";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 interface MessageInputProps { }
 
 export const MessageInput: FC<MessageInputProps> = memo(() => {
-  const { isOpen, onClose, onOpen } = useDisclosure()
+  const { isOpen, onToggle, onClose, onOpen } = useDisclosure()
   const { colorMode } = useColorMode()
   const messRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)
+  const isAuth = useAppSelector(state => state.auth.isAuth)
+
+  const outsideClickHandle = (e: Event) => {
+    const element = e.target as HTMLElement
+    const isSmileIcon = element.classList.contains('smile-icon')
+    !isSmileIcon && onClose()
+  }
+
   useOutsideClick({
     ref: ref,
-    handler: onClose,
+    handler: outsideClickHandle
   })
+
 
   const onEmojiClick = ({ emoji }: EmojiClickData) => {
     if (messRef.current) {
@@ -28,6 +38,7 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
       margin='0 auto'
       gap={3}
       px={5}
+      pb={4}
     >
       <Flex
         layerStyle='bg.main'
@@ -41,25 +52,27 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
       >
         <Box
           ref={ref}
-          as={ScaleFade}
-          initialScale={0.7}
-          in={isOpen}
+          transition='all .3s ease-out'
+          opacity={isOpen ? 1 : 0}
+          visibility={isOpen ? 'visible' : 'hidden'}
+          transform={`scale(${isOpen ? 1 : 0.7})`}
           pos='absolute'
           bottom='68px'
           left='-3px'
-          zIndex={isOpen ? '' : -1}
         >
-          <EmojiPicker
-            height='50vh'
-            theme={colorMode as any}
-            onEmojiClick={onEmojiClick}
-            previewConfig={{
-              showPreview: false
-            }}
-            searchDisabled
-          />
+          {isAuth &&
+            <EmojiPicker
+              height='50vh'
+              theme={colorMode as any}
+              onEmojiClick={onEmojiClick}
+              previewConfig={{
+                showPreview: false
+              }}
+              searchDisabled
+            />
+          }
         </Box>
-        <SmileIcon onClick={!isOpen ? onOpen : undefined} />
+        <SmileIcon className='smile-icon' onClick={onToggle} />
         <Box
           ref={messRef}
           w='100%'
