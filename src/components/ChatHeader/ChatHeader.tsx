@@ -2,7 +2,6 @@ import { FC, memo } from "react";
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { useAppSelector } from "@/hooks/useAppSelector";
 import { useIsMobile } from "@/hooks/useMobile";
 import { chatActions } from "@/redux/slices/chat.slice";
 
@@ -34,7 +33,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(({ name = '' }) => {
           onClick={backClick}
         />
 }
-      <Avatar size={isMobile ? 'sm' : 'md'} name={name}/>
+      <Avatar size='md' name={name}/>
       <Text>{name}</Text>
     </Flex>
   )

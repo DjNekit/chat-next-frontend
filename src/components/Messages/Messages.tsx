@@ -1,7 +1,6 @@
 import { IMessage } from '@/types'
-import { useSize } from "@chakra-ui/react-use-size"
-import { Box, Flex, Grid, useDimensions } from '@chakra-ui/react'
-import { FC, ForwardedRef, forwardRef, memo, useEffect, useRef, useState } from 'react'
+import { Box, Flex } from '@chakra-ui/react'
+import { FC, useEffect, useRef } from 'react'
 import { MessageItem } from './MessageItem'
 import { useAppSelector } from '@/hooks/useAppSelector'
 
@@ -24,17 +23,16 @@ export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
   return (
     <Box
       ref={ref}
-      p={4}
+      py={4}
+      px={5}
       height={height}
-      overflow='auto'
+      overflowY='auto'
+      overflowX='hidden'
     >
       <Flex 
-        w={{
-          lg: '80%',
-        }} 
+        maxW='685px' 
         m='0 auto'
         flexDirection='column'
-        justifyContent='end'
         gap={2}
       >
         {data.map(message => {
