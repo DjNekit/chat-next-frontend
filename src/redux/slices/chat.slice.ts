@@ -51,6 +51,11 @@ export const chatSlice = createSlice({
       .addMatcher(chatApi.endpoints.chats.matchFulfilled, (state, action) => {
         state.chats = action.payload
       })
+
+    builder
+      .addMatcher(chatApi.endpoints.chatById.matchFulfilled, (state, action) => {
+        state.activeChat = action.payload
+      })
   }
 })
 
