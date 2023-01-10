@@ -78,7 +78,7 @@ export default function SignupPage() {
             />
             <Button type='submit'>Sign up</Button>
             <Text textAlign='center' color='white'>
-              Already have account? <Link href='/signin' lighter>Sign In!</Link>
+              Already have account? <Link href='/' lighter>Sign In!</Link>
             </Text>
           </Stack>
         </Box>

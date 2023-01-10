@@ -1,3 +1,4 @@
+export { SignForm } from './SignForm/SignForm';
 export { SigninLayout } from "./SigninLayout/SigninLayout";
 export { Link } from './Link/Link';
 export { Loading } from './Loading/Loading'

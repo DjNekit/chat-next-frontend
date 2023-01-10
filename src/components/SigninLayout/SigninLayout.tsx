@@ -9,13 +9,14 @@ interface SigninLayoutProps {
 
 export const SigninLayout: FC<SigninLayoutProps> = ({ children }) => {
   return (
-    <Flex 
-      h='100vh' 
+
+    <Flex
+      h='100vh'
       flexDirection={{
         md: 'row',
         base: 'column'
-      }} 
-      justifyContent='space-around' 
+      }}
+      justifyContent='space-around'
     >
       <Image
         src='/planet.jpeg'

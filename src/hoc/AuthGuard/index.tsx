@@ -22,7 +22,7 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
 
   useEffect(() => {
     if (!isAuth && !isFirstLoading) {
-      router.replace('/signin')
+      router.replace('/')
     }
 
     if (isAuth && !isConnect) {
