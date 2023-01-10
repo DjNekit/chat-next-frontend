@@ -18,6 +18,7 @@ export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
   const toast = useToast()
   
   const { isAuth, isFirstLoading } = useAppSelector(state => state.auth)
+  console.log(isAuth)
   const { isConnect, error } = useAppSelector(state => state.chat)
 
   useEffect(() => {
