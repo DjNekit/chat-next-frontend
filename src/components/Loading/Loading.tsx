@@ -11,7 +11,7 @@ export const Loading = () => {
       top={0}
       left={0}
       zIndex='overlay'
-      bg='Background'
+      layerStyle='bg.main'
     >
       <InfinitySpin 
         width='200' 

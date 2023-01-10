@@ -1,41 +1,42 @@
-import { IMessage } from '@/types'
 import { Box, Flex } from '@chakra-ui/react'
-import { FC, useEffect, useRef } from 'react'
+import { forwardRef } from 'react'
 import { MessageItem } from './MessageItem'
 import { useAppSelector } from '@/hooks/useAppSelector'
 
 interface MessagesProps {
-  chatId?: number
   height?: number
-  data?: IMessage[]
 }
 
-export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const { user } = useAppSelector(state => state.auth)
+type Ref = HTMLDivElement
 
-  useEffect(() => {
-    if (ref.current && chatId) {
-      ref.current.scrollTop = ref.current.scrollHeight
-    }
-  }, [chatId])
+export const Messages = forwardRef<Ref, MessagesProps>((
+  { height },
+  ref
+) => {
+  const { user } = useAppSelector(state => state.auth)
+  const messages = useAppSelector(state => state.chat.activeChat?.messages)
+
 
   return (
     <Box
       ref={ref}
       py={4}
       px={5}
+      pb={0}
       height={height}
       overflowY='auto'
       overflowX='hidden'
     >
       <Flex 
-        maxW='685px' 
+        maxW='685px'
+        h='100%'
+        justifyContent='flex-end'
         m='0 auto'
+        px={5}
         flexDirection='column'
         gap={2}
       >
-        {data.map(message => {
+        {messages?.map(message => {
           const fromMe = message.author_id === user?.id
           const author = fromMe ? user : user 
 
@@ -51,4 +52,4 @@ export const Messages: FC<MessagesProps> = ({ data = [], height, chatId }) => {
       </Flex>
     </Box>
   )
-}
+})

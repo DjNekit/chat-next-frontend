@@ -5,10 +5,13 @@ import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { SmileIcon } from "../Icons/SmileIcon";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { SendIcon } from "../Icons/SendIcon";
+import { IMessage } from "@/types";
 
-interface MessageInputProps { }
+interface MessageInputProps {
+  onSubmit: (newMessage: string) => void
+}
 
-export const MessageInput: FC<MessageInputProps> = memo(() => {
+export const MessageInput: FC<MessageInputProps> = memo(({ onSubmit }) => {
   const { isOpen, onToggle, onClose, onOpen } = useDisclosure()
   const { colorMode } = useColorMode()
   const messRef = useRef<HTMLDivElement>(null)
@@ -33,14 +36,26 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
     }
   }
 
+  const onClick = () => {
+    const newMessage = messRef.current?.innerText.trim()
+
+    if (newMessage) {
+      onSubmit(newMessage)
+    }
+
+  }
+
   return (
     <Flex
       maxW='685px'
       margin='0 auto'
+      borderTopColor='gray.400'
+      borderTopWidth={1}
+      borderTopStyle='solid'
       alignItems='flex-end'
       gap={3}
       px={5}
-      pb={4}
+      py={4}
     >
       <Flex
         layerStyle='bg.main'
@@ -91,6 +106,7 @@ export const MessageInput: FC<MessageInputProps> = memo(() => {
         aria-label='Send message'
         size='lg'
         mb='2px'
+        onClick={() => onClick()}
         _hover={{
           bg: 'telegram.400',
           fill: 'white',

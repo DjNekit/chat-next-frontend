@@ -20,4 +20,5 @@ export interface IChat {
   members: IUser[]
   messages: IMessage[]
   lastMessage?: string
+  companion?: IUser
 }

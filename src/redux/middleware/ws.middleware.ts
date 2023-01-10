@@ -1,4 +1,4 @@
-import { Middleware } from "@reduxjs/toolkit";
+import { AnyAction, Middleware, PayloadAction } from "@reduxjs/toolkit";
 import { chatActions } from "../slices/chat.slice";
 import { Socket, io } from "socket.io-client";
 import { RootState } from "../store";
@@ -7,11 +7,11 @@ import { authActions } from "../slices/auth.slice";
 export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
   let socket: Socket
 
-  return (next: any) => (action: any) => {
+  return next => (action: PayloadAction<AnyAction>) => {
     const isConnect = socket && (getState() as RootState).chat.isConnect;
 
     if (chatActions.startConnection.match(action)) {
-      const accessToken = getState().auth.accessToken
+      const accessToken = (getState() as RootState).auth.accessToken
       socket = io(process.env.NEXT_PUBLIC_API!, {
         auth: {
           token: accessToken
@@ -31,8 +31,8 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
         const isAuthError = error.statusCode === 401
 
         if (isAuthError) {
+          socket.disconnect()
           const { failedMessage: { type, body } } = error
-
           const result = await fetch('/api/auth/refresh', {
             method: 'POST',
           })
@@ -47,7 +47,6 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
             }
 
             socket
-              .disconnect()
               .connect()
               .emit(type, body)
           }
@@ -55,14 +54,12 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
       });
 
       socket.on('message', (message) => {
-        console.log(message)
+        dispatch(chatActions.newMessage(message))
       })
     }
 
     if (chatActions.submitMessage.match(action) && isConnect) {
-      socket.emit('events', {
-        message: 'hi from client'
-      })
+      socket.emit('newMessage', action.payload)
     }
 
     next(action);
