@@ -1,30 +1,40 @@
-import { useSigninMutation } from '@/redux/api/auth'
-import { Box, Button, Fade, Input, Stack, Text } from '@chakra-ui/react'
-import React, { FC, memo } from 'react'
+import { useSigninMutation, useSignupMutation } from '@/redux/api/auth'
+import { Box, Button, Fade, Input, ScaleFade, Stack, Text } from '@chakra-ui/react'
+import React, { FC, memo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Link } from '../Link/Link'
 
 interface SignFormProps { }
 
 export const SignForm: FC<SignFormProps> = memo(() => {
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin')
   const [signin, { isLoading }] = useSigninMutation()
+  const [signup, {}] = useSignupMutation()
   const { control, handleSubmit, setError } = useForm({
     mode: 'onSubmit',
     defaultValues: {
+      name: '',
       email: '',
       password: ''
     }
   })
 
+  const changeMode = () => {
+    setMode(prev => prev === 'signin' ? 'signup' : 'signin')
+  }
+
   const onSubmit = async (data: any) => {
-    signin(data)
+    (mode === 'signin' 
+      ? signin(data) 
+      : signup(data)
+    )
       .unwrap()
-      .catch(() => {
+      .catch((error) => {
         setError('email', {
           message: ''
         })
         setError('password', {
-          message: 'Invalid credentials'
+          message: error.data.message || 'Invalid credentials'
         })
       })
   }
@@ -37,8 +47,40 @@ export const SignForm: FC<SignFormProps> = memo(() => {
           fontSize='4xl'
           textAlign='center'
         >
-          Signin
+          {mode === 'signin' ? 'Sign In' : 'Sign Up'}
         </Text>
+        <ScaleFade in={mode === 'signup'} unmountOnExit>
+          <Controller
+            name='name'
+            control={control}
+            rules={{
+              required: 'Name is required',
+              minLength: {
+                value: 3,
+                message: 'Name is too short'
+              }
+            }}
+            render={({ field, fieldState: { error } }) =>
+              <Box>
+                <Input
+                  {...field}
+                  isInvalid={Boolean(error)}
+                  size='lg'
+                  color='white'
+                  placeholder='Name'
+                />
+                <Fade in={Boolean(error)} unmountOnExit>
+                  <Text
+                    color='red.500'
+                    mt={1}
+                  >
+                    {error?.message}
+                  </Text>
+                </Fade>
+              </Box>
+            }
+          />
+        </ScaleFade>
         <Controller
           name='email'
           control={control}
@@ -104,10 +146,22 @@ export const SignForm: FC<SignFormProps> = memo(() => {
           isLoading={isLoading}
           colorScheme='telegram'
         >
-          Sign in
+          {mode === 'signin' ? 'Sign in' : 'Sign up'}
         </Button>
-        <Text textAlign='center' color='white'>
-          Don't have account? <Link href='/signup' lighter>Sign Up!</Link>
+        <Text textAlign='center' color='white' cursor='default'>
+          {mode === 'signin' 
+            ? "Don't have account?"
+            : "Already have account?"
+          }
+          {' '}
+          <Box 
+            as='span' 
+            onClick={changeMode}
+            cursor='pointer'
+            color='blue.400'
+          >
+            {mode === 'signin' ? 'Sign Up!' : 'Sign In!'}
+          </Box>
         </Text>
       </Stack>
     </Box>
