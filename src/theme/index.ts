@@ -16,9 +16,7 @@ export default extendTheme(
     layerStyles
   },
   withDefaultProps({
-    defaultProps: {
-      colorScheme: 'telegram',
-    },
+    defaultProps: {},
     components: ['Button']
   }),
 )

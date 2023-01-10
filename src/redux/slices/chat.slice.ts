@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IChat, IUser } from "@/types";
+import { IChat } from "@/types";
 import { chatApi } from "../api/chat";
 
 interface IChatState {
@@ -33,11 +33,14 @@ export const chatSlice = createSlice({
       state.error = action.payload.message
       state.isEstablishingConnection = false
     },
-    receiveMessage: (state, action) => {
-      console.log(action.payload)
-    },
     submitMessage: (state, action) => {
-      return;
+      state.activeChat?.messages.push(action.payload)
+    },
+    newMessage: (state, action) => {
+      const { chatId, ...message } = action.payload
+      const chatIndex = state.chats.findIndex(chat => chat.id === chatId)
+      state.chats[chatIndex].messages.push(message)
+      state.activeChat?.messages.push(message)
     },
     setChat: (state, action: PayloadAction<IChat | null>) => {
       state.activeChat = action.payload

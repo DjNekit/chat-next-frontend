@@ -1,5 +1,5 @@
 import { FC, memo } from "react"
-import { Flex, Text } from "@chakra-ui/react"
+import { Center, Flex, Spinner, Text } from "@chakra-ui/react"
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 
 import { chatActions } from '@/redux/slices/chat.slice'
@@ -26,7 +26,11 @@ export const SearchResults: FC<SearchResultsProps> = memo(({ results, isLoading 
   }
 
   if (isLoading) {
-    return <Loading />
+    return (
+      <Center h='100%'>
+        <Spinner />
+      </Center>
+    )
   }
 
   return (

@@ -11,8 +11,8 @@ export const AnimatedLogo = () => {
         color='white'
         _hover={{
           color: 'white',
-          transform: 'scale(1.1)',
-          transition: 'all .3s ease-out'
+          transform: 'scale(1.01)',
+          transition: 'all .4s ease-out'
         }}
         fontSize={[35, 50, 50, 70, 100]} 
         gap={5} 

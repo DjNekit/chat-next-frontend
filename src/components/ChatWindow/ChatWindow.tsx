@@ -1,19 +1,24 @@
-import { FC, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef, useState } from "react"
 import { Box, Fade, Grid, GridItem, Slide, useColorMode } from "@chakra-ui/react"
 import { useAppSelector } from "@/hooks/useAppSelector"
 import { ChatHeader, MessageInput, Messages } from "@/components"
 import bg from '@/assets/images/chat-bg.png'
 import bgDark from '@/assets/images/chat-bg-dark.png'
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { chatActions } from "@/redux/slices/chat.slice"
+import { nanoid } from "nanoid"
 
 interface ChatProps { }
 
 export const ChatWindow: FC<ChatProps> = () => {
-  const { colorMode } = useColorMode()
-  
+  const dispatch = useAppDispatch()
   const { activeChat } = useAppSelector(state => state.chat)
-  const ref = useRef<HTMLDivElement>(null)
+  const userId = useAppSelector(state => state.auth.user?.id)
+  const { colorMode } = useColorMode()
   const [height, setHeight] = useState<any>('auto')
-
+  const ref = useRef<HTMLDivElement>(null)
+  const messagesAreaRef = useRef<HTMLDivElement>(null)
+  
   useEffect(() => {
     window.addEventListener('resize', () => {
       if (ref.current) {
@@ -25,6 +30,38 @@ export const ChatWindow: FC<ChatProps> = () => {
       setHeight(ref.current.scrollHeight)
     }
   }, [])
+
+  useEffect(() => {
+    if (messagesAreaRef.current && activeChat?.id) {
+      messagesAreaRef.current.scrollTop = messagesAreaRef.current.scrollHeight
+    }
+  }, [activeChat?.id])
+
+  useEffect(() => {
+    if (messagesAreaRef.current) {
+      scrollToBottom()
+    }
+  }, [activeChat?.messages])
+
+  const scrollToBottom = () => {
+    messagesAreaRef.current?.scrollBy({
+      behavior: 'smooth',
+      top: messagesAreaRef.current?.scrollHeight
+    })
+  }
+
+  const onSubmit = useCallback(async (newMessage: string) => {
+    const message = {
+      id: nanoid(),
+      content: newMessage,
+      chatId: activeChat?.id,
+      status: 'unread',
+      author_id: userId,
+      created_date: Date.now()
+    }
+    await dispatch(chatActions.submitMessage(message))
+   
+  }, [userId, activeChat?.id])
 
   return (
     <Box
@@ -55,8 +92,7 @@ export const ChatWindow: FC<ChatProps> = () => {
           <GridItem ref={ref} overflow='hidden'>
             <Fade in={!!activeChat}>
               <Messages
-                chatId={activeChat?.id}
-                data={activeChat?.messages}
+                ref={messagesAreaRef}
                 height={height}
               />
             </Fade>
@@ -67,7 +103,9 @@ export const ChatWindow: FC<ChatProps> = () => {
               direction='bottom'
               style={{ position: 'relative' }}
             >
-              <MessageInput />
+              <MessageInput 
+                onSubmit={onSubmit}
+              />
             </Slide>
           </GridItem>
         </Grid>
