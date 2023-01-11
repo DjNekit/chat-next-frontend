@@ -45,6 +45,9 @@ export const chatSlice = createSlice({
     setChat: (state, action: PayloadAction<IChat | null>) => {
       state.activeChat = action.payload
     },
+    getChat: (state, action: PayloadAction<number>) => {
+      
+    },
   },
   extraReducers: builder => {
     builder

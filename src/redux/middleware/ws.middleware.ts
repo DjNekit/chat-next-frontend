@@ -20,7 +20,6 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
 
       socket.on('connect', () => {
         dispatch(chatActions.connectionEstablished());
-        console.log('connect')
       })
 
       socket.on('connect_error', (error) => {
@@ -60,6 +59,9 @@ export const wsMiddleware: Middleware = ({ getState, dispatch }) => {
 
     if (chatActions.submitMessage.match(action) && isConnect) {
       socket.emit('newMessage', action.payload)
+    }
+    if (chatActions.getChat.match(action) && isConnect) {
+      socket.emit('createChat', action.payload)
     }
 
     next(action);

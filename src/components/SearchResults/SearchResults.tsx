@@ -22,7 +22,8 @@ export const SearchResults: FC<SearchResultsProps> = memo(({ results, isLoading 
   const dispatch = useAppDispatch()
   
   const onSearchItemClick = (user: IUser) => {
-    getChat(user.id)
+    dispatch(chatActions.getChat(user.id))
+    // getChat(user.id)
   }
 
   if (isLoading) {
